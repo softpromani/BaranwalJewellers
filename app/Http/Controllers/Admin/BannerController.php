@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller
@@ -12,7 +13,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        return view('admin.banner');
+        $banners = Banner::all();
+        return view('admin.banner', compact('banners'));
     }
 
     /**
@@ -28,7 +30,20 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $path = null;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('banners', 'public');
+        }
+
+        $data = [
+            'image' => $path,
+            'path' => $request->url,
+        ];
+
+        Banner::create($data);
+        return redirect()->route('admin.banner.index');
     }
 
     /**
@@ -42,24 +57,41 @@ class BannerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Banner $banner)
     {
-        //
+        $editbanner = $banner;
+        $banners = Banner::all();
+        return view('admin.banner', compact('editbanner', 'banners'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Banner $banner)
     {
-        //
+       $path = $banner->image;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('banners', 'public');
+        }
+
+        $data = [
+            'image' => $path,
+            'path' => $request->url,
+        ];
+
+        $banner->update($data);
+
+        return redirect()->route('admin.banner.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Banner $banner)
     {
-        //
+        $banner->delete();
+        return redirect()->route('admin.banner.index');
     }
 }

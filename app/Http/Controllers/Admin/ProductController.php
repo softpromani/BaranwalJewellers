@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product.list');
+       $products = Product::all();
+       return view('admin.product.list', compact('products'));
+
     }
 
     /**
@@ -28,7 +31,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       if ($request->hasFile('images')) {
+    $file = $request->file('images');
+    $path = $file->store('products', 'public');
+
+}
+
+if ($request->hasFile('thumbnail_image')) {
+    $file = $request->file('thumbnail_image');
+    $thumbnailpath = $file->store('products', 'public');
+}
+
+
+$data = [
+
+    'name' => $request->name,
+    'description' => $request->description,
+    'thumbnail_image' => $thumbnailpath,
+    'images' => $path ?? null,
+
+];
+
+Product::create($data);
+return redirect()->route('admin.product.index');
+
     }
 
     /**
@@ -42,24 +68,52 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        $editproduct = $product;
+        $products = Product::all();
+        return view('admin.product.add', compact('editproduct', 'products'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+    if ($request->hasFile('images')) {
+    $file = $request->file('images');
+    $path = $file->store('products', 'public');
+    Product::find($product->id)->update(['images' => $path]);
+}
+
+
+    if ($request->hasFile('thumbnail_image')) {
+    $file = $request->file('thumbnail_image');
+    $path = $file->store('products', 'public');
+    Product::find($product->id)->update(['thumbnail_image' => $path]);
+    }
+
+$data = [
+
+    'name' => $request->name,
+    'description' => $request->description,
+
+
+];
+
+$product = $product::find($product->id)->update($data);
+return redirect()->route('admin.product.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+       $product->delete();
+       return redirect()->route('admin.product.index');
+
     }
 }

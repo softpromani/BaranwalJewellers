@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login'])->name('home');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
+Route::post('/change-password', [AuthController::class, 'changePassword'])->name('admin.change_password');
+
 
 Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');

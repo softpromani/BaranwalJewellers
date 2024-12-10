@@ -13,3 +13,4 @@ Route::get('category/list', [CategoryController::class, 'list']);
 
 //Banner
 Route::get('banner/list', [BannerController::class, 'list']);
+

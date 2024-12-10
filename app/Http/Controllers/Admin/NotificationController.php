@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -12,7 +13,9 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        return view('admin.notification');
+        $notifications = Notification::all();
+        return view('admin.notification', compact('notifications'));
+
     }
 
     /**
@@ -28,7 +31,23 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+       if ($request->hasFile('image')) {
+       $file = $request->file('image');
+       $path = $file->store('notifications', 'public');
+       }
+
+        $data = [
+
+        'title' => $request->title,
+        'description' => $request->description,
+        'image' => $path ?? null
+
+        ];
+
+     Notification::create($data);
+     return redirect()->route('admin.notification.index');
+
     }
 
     /**
@@ -42,24 +61,45 @@ class NotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Notification $notification)
     {
-        //
+       $editnotification = $notification;
+       $notifications = Notification::all();
+       return view('admin.notification', compact('editnotification', 'notifications'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Notification $notification)
     {
-        //
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('notifications', 'public');
+            Notification::find($notification->id)->update(['image'=>$path]);
+        }
+
+        $data = [
+
+            'title' => $request->title,
+            'description' => $request->description,
+
+        ];
+
+        $notification=Notification::find($notification->id)->update($data);
+
+        return redirect()->route('admin.notification.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Notification $notification)
     {
-        //
+       $notification->delete();
+       return redirect()->route('admin.notification.index');
+
     }
 }
