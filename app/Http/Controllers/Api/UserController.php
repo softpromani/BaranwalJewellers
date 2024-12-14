@@ -13,17 +13,13 @@ class UserController extends Controller
 $validate=Validator::make($req->all(),[
 
     'first_name'=>'required|string|max:255',
-    'last_name'=>'required|string|max:255',
-    'name'=>'required|string|max:255',
-    'email'=>'required|email',
-    'city'=>'required|string|max:255',
-    'state'=>'required|string|max:255',
-    'country'=>'required|string|max:255',
-    'pincode'=>'required|string|max:6',
-    'about'=>'nullable',
-    'company'=>'nullable',
-    'profession'=>'nullable',
-    'address'=>'required|string|max:255',
+    'last_name'=>'nullable',
+    'email'=>'nullable|email',
+    'city'=>'nullable',
+    'state'=>'nullable',
+    'country'=>'nullable',
+    'pincode'=>'nullable',
+    'address'=>'nullable',
  
 ]);
 
