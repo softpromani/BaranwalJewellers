@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('name')->nullable();
+            $table->string(column: 'first_name')->nullable();
+            $table->string(column: 'last_name')->nullable();
+            $table->string(column: 'name')->nullable();
             $table->string('email')->nullable();
-            $table->string('phone')->unique();
-            $table->string('city')->nullable();
+            $table->string(column: 'phone')->unique();
+            $table->string(column: 'city')->nullable();
             $table->string('state')->nullable();
             $table->string('country')->nullable();
-            $table->string('pincode')->nullable();
+            $table->string(column: 'pincode')->nullable();
             $table->string('image')->nullable();
             $table->longText('about')->nullable();
-            $table->string('company')->nullable();
+            $table->string(column: 'company')->nullable();
             $table->string('profession')->nullable();
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->text('fcm_token')->nullable();
             $table->tinyInteger('is_phone_verified')->default(1);
-            $table->text('address')->nullable();
+            $table->text(column: 'address')->nullable();
             $table->text('token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CaratSeeder::class);
         $this->call(MetalSeeder::class);
+        $this->call(AdminSeeder::class);
 
     }
 

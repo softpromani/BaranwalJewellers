@@ -19,6 +19,7 @@ class AdminSeeder extends Seeder
         'last_name'=>'Trave',
         'email'=>'itrove@gmail.com',
         'password'=>Hash::make('123456789'),
+        'phone'=>'123456789',
         'status'=>true,
         'is_admin'=>true
        ]);

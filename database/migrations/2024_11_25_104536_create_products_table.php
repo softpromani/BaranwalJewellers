@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string(column: 'metal_id')->nullable();
             $table->string('carat_id')->nullable();
             $table->string('weight_number')->nullable();
-
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
