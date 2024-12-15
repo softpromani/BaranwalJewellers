@@ -93,7 +93,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="tables-data.html">
+                    <a href="{{ route('admin.metal-rate') }}">
                         <i class="bi bi-circle"></i><span>Metal Rate</span>
                     </a>
                 </li>

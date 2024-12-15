@@ -13,6 +13,8 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable,HasApiTokens;
     protected $guarded = [];
+    protected $appends = ['image_url'];
+
 
     public function scopeActive($query)
     {
@@ -22,5 +24,10 @@ class User extends Authenticatable
     function getNameAttrribute()
     {
         return $this->first_name.' '.$this->last_name;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return env('APP_URL') . '/storage/' . $this->image;
     }
 }
