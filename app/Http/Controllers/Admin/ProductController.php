@@ -27,7 +27,7 @@ class ProductController extends Controller
     {
         $metals = Metal::get();
         $carats = Carat::get();
-        return view('admin.product.add');
+        return view('admin.product.add', compact('metals','carats'));
     }
 
     /**
