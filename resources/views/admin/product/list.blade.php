@@ -41,7 +41,7 @@
                             <td>{!! substr($product->description ?? 'N/A', 0, 20) !!}</td>
                             <td><img src="{{ asset('storage/' . $product->thumbnail_image) }}" alt=""
                                     width="100"></td>
-                            <td>₹ {{ $product->final_price ?? 0.00 }}</td>
+                            <td>₹ {{ $product->final_amount ?? 0.00 }}</td>
                             <td>
                                 @if ($product->status == 1)
                                 <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>

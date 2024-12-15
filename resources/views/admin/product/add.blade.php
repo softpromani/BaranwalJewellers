@@ -46,12 +46,12 @@
                 </div> --}}
 
                 <div class="col-md-4">
-                    <label for="inputPassword4" class="form-label">Packing Charge</label>
+                    <label for="inputPassword4" class="form-label">Packing Charge <span class="text-info">(In Rs. Only)</span></label>
                     <input type="number" class="form-control" name="packing_charge" placeholder="Packing Charge">
                 </div>
 
                 <div class="col-md-4">
-                    <label for="inputPassword4" class="form-label">Hallmarking Charge</label>
+                    <label for="inputPassword4" class="form-label">Hallmarking Charge <span class="text-info">(In Rs. Only)</label>
                     <input type="number" class="form-control" name="hallmarking_charge" placeholder="Hallmarking Charge">
                 </div>
 
@@ -61,7 +61,7 @@
                 </div> --}}
 
                 <div class="col-md-4">
-                    <label for="inputPassword4" class="form-label">Making Charge</label>
+                    <label for="inputPassword4" class="form-label">Making Charge <span class="text-info">(In Percentage Only)</label>
                     <input type="number" class="form-control" name="making_charge" placeholder="Making Charge">
                 </div>
 
@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="inputPassword4" class="form-label">Tax</label>
+                    <label for="inputPassword4" class="form-label">Tax <span class="text-info">(In Percentage Only)</label>
                     <input type="number" class="form-control" name="tax" placeholder="Tax">
                 </div>
 
@@ -103,7 +103,7 @@
                 <div class="col-md-4">
                     <label for="caret_id" class="form-label">Carat</label>
                     <select id="caret_id" class="form-control" name="carat_id">
-                        <option value="" selected disabled>Select Caret</option>
+                        <option value="" selected disabled>Select Carat</option>
                         @foreach ($carats as $carat)
                             <option value="{{ $carat->id }}">{{ $carat->name }}</option>
                         @endforeach

@@ -19,7 +19,7 @@ class Product extends Model
         return env('APP_URL') . 'storage/' . $this->thumbnail_image;
     }
 
-    function getFinalPriceAttribute()
+    function getFinalAmountAttribute()
     {
         $final_amount = 0.0;
 
