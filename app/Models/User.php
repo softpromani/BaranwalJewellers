@@ -28,6 +28,6 @@ class User extends Authenticatable
 
     public function getImageUrlAttribute()
     {
-        return env('APP_URL') . '/storage/' . $this->image;
+        return env('APP_URL') . 'storage/' . $this->image;
     }
 }

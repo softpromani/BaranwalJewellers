@@ -16,6 +16,6 @@ class Product extends Model
 
     public function getThumbnailImageUrlAttribute()
     {
-        return env('APP_URL') . '/storage/' . $this->thumbnail_image;
+        return env('APP_URL') . 'storage/' . $this->thumbnail_image;
     }
 }

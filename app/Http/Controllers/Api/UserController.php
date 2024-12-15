@@ -22,7 +22,7 @@ class UserController extends Controller
             'country' => 'nullable',
             'pincode' => 'nullable',
             'address' => 'nullable',
-
+            'fcm_token' => 'nullable',
         ]);
 
         if ($validate->fails()) {

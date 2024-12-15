@@ -16,6 +16,6 @@ class Category extends Model
 
     public function getImageUrlAttribute()
     {
-        return env('APP_URL') . '/storage/' . $this->image;
+        return env('APP_URL') . 'storage/' . $this->image;
     }
 }
