@@ -15,6 +15,15 @@ class User extends Authenticatable
     protected $guarded = [];
     protected $appends = ['image_url'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Automatically combine first_name and last_name into name on create or update
+        static::saving(function ($model) {
+            $model->name = trim($model->first_name . ' ' . $model->last_name);
+        });
+    }
 
     public function scopeActive($query)
     {
