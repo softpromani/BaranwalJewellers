@@ -28,7 +28,8 @@
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Thumbnail Image</th>
-                        <th scope="col">Images</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -37,16 +38,16 @@
                         <tr>
                             <th scope="row">{{ $loop->index + 1 }}</th>
                             <td>{{ $product->name ?? 'N/A' }}</td>
-                            <td>{{ $product->description ?? 'N/A' }}</td>
+                            <td>{!! substr($product->description ?? 'N/A', 0, 20) !!}</td>
                             <td><img src="{{ asset('storage/' . $product->thumbnail_image) }}" alt=""
                                     width="100"></td>
-                            <td><img src="{{ asset('storage/' . $product->images) }}" alt="" width="100"></td>
+                            <td>₹ 120</td>
                             <td>
-                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Completed</span>
-                                <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
-                            </td>
-                            <td>
-                                <a class="btn btn-warning"><i class="bi bi-eye"></i></a>
+                                @if ($product->status == 1)
+                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
+                                @else
+                                <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Inactive</span>
+                                @endif
                             </td>
                             <td>
                                 <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-warning"><i

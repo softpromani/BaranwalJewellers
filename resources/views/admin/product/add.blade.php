@@ -40,10 +40,10 @@
                     <input type="file" class="form-control" name="thumbnail_image">
                 </div>
 
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <label for="inputPassword4" class="form-label">Images</label>
                     <input type="file" class="form-control" name="images">
-                </div>
+                </div> --}}
 
                 <div class="col-md-4">
                     <label for="inputPassword4" class="form-label">Packing Charge</label>
@@ -95,14 +95,14 @@
                     <select id="metal_id" class="form-control" name="metal_id">
                         <option value="" selected disabled>Select Metal</option>
                         @foreach ($metals as $metal)
-                            <option value="{{ $metal->id }}">{{ $metal->name }}</option>
+                            <option value="{{ $metal->id }}">{{ ucfirst($metal->name) }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="col-md-4">
                     <label for="caret_id" class="form-label">Carat</label>
-                    <select id="caret_id" class="form-control" name="caret_id">
+                    <select id="caret_id" class="form-control" name="carat_id">
                         <option value="" selected disabled>Select Caret</option>
                         @foreach ($carats as $carat)
                             <option value="{{ $carat->id }}">{{ $carat->name }}</option>

@@ -39,7 +39,7 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'thumbnail_image' => 'required',
-            'images' => 'nullable',
+            // 'images' => 'nullable',
             'packing_charge' => 'required',
             'hallmarking_charge' => 'required',
             'making_charge' => 'required',
@@ -50,22 +50,21 @@ class ProductController extends Controller
             'weight' => 'required'
         ]);
 
-       if ($request->hasFile('images')) {
-            $file = $request->file('images');
-            $path = $file->store('products', 'public');
-        }
+    //    if ($request->hasFile('images')) {
+    //         $file = $request->file('images');
+    //         $path = $file->store('products', 'public');
+    //     }
 
         if ($request->hasFile('thumbnail_image')) {
             $file = $request->file('thumbnail_image');
             $thumbnailpath = $file->store('products/thumbnail', 'public');
         }
 
-
         $data = [
             'name' => $request->name,
             'description' => $request->description,
             'thumbnail_image' => $thumbnailpath,
-            'images' => $path ?? null,
+            // 'images' => $path ?? null,
             'packing_charge' => $request->packing_charge,
             'hallmarking_charge' => $request->hallmarking_charge,
             'making_charge' => $request->making_charge,
@@ -77,7 +76,7 @@ class ProductController extends Controller
         ];
 
         Product::create($data);
-        return redirect()->back()->with('Product added successfully');
+        return redirect()->route('admin.product.index')->with('success','Product added successfully');
     }
 
     /**
@@ -96,7 +95,6 @@ class ProductController extends Controller
         $editproduct = $product;
         $products = Product::all();
         return view('admin.product.add', compact('editproduct', 'products'));
-
     }
 
     /**
@@ -108,7 +106,7 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'thumbnail_image' => 'required',
-            'images' => 'nullable',
+            // 'images' => 'nullable',
             'packing_charge' => 'required',
             'hallmarking_charge' => 'required',
             'making_charge' => 'required',
@@ -119,11 +117,11 @@ class ProductController extends Controller
             'weight' => 'required'
         ]);
 
-        if ($request->hasFile('images')) {
-            $file = $request->file('images');
-            $path = $file->store('products', 'public');
-            Product::find($product->id)->update(['images' => $path]);
-        }
+        // if ($request->hasFile('images')) {
+        //     $file = $request->file('images');
+        //     $path = $file->store('products', 'public');
+        //     Product::find($product->id)->update(['images' => $path]);
+        // }
 
         if ($request->hasFile('thumbnail_image')) {
             $file = $request->file('thumbnail_image');
@@ -135,7 +133,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'thumbnail_image' => $thumbnailpath,
-            'images' => $path ?? null,
+            // 'images' => $path ?? null,
             'packing_charge' => $request->packing_charge,
             'hallmarking_charge' => $request->hallmarking_charge,
             'making_charge' => $request->making_charge,
@@ -147,7 +145,7 @@ class ProductController extends Controller
         ];
 
         $product = $product::find($product->id)->update($data);
-        return redirect()->back()->with('Product updated successfully');
+        return redirect()->route('admin.product.index')->with('success','Product updated successfully');
 
     }
 
@@ -157,6 +155,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
        $product->delete();
-       return redirect()->back()->with('Product deleted successfully');
+       return redirect()->back()->with('success','Product deleted successfully');
     }
 }
