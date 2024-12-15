@@ -14,7 +14,8 @@ class MetalrateController extends Controller
     {
         $metals = Metal::get();
         $carats = Carat::get();
-        return view('admin.business-setting.metal-rate', compact('metals', 'carats'));
+        $metal_carat_rate = MetalCaratRate::get();
+        return view('admin.business-setting.metal-rate', compact('metals', 'carats','metal_carat_rate'));
     }
 
     public function update(Request $request)
@@ -49,7 +50,7 @@ class MetalrateController extends Controller
             );
         }
 
-        
+
         return redirect()->back()->with('success', 'Metal Rate Updated Successfully.');
 
     }
