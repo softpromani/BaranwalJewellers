@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Metal extends Model
 {
-   use HasFactory, SoftDeletes;
+   use HasFactory;
       protected $guarded = [];
 }

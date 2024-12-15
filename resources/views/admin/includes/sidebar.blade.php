@@ -92,6 +92,11 @@
                         <i class="bi bi-circle"></i><span>Live Rate</span>
                     </a>
                 </li>
+                <li>
+                    <a href="tables-data.html">
+                        <i class="bi bi-circle"></i><span>Metal Rate</span>
+                    </a>
+                </li>
             </ul>
         </li>
 

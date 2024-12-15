@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\MetalrateController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login'])->name('home');
@@ -20,6 +21,14 @@ Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], functi
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);
     Route::resource('product', ProductController::class);
+    Route::get('metal-rate', [MetalrateController::class, 'metal_rate'])->name('metal-rate');
+    Route::post('metal-rate', [MetalrateController::class, 'update'])->name('metal-rates');
+    Route::post('profile-update', [AuthController::class, 'profile_update'])->name('profile-update');
+
+
+
+
+
 
     Route::get('abandoned-cart', [AdminController::class, 'abandonedCart'])->name('abandonedCart');
     Route::get('order-list', [AdminController::class, 'orderList'])->name('orderList');

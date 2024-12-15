@@ -4,10 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Carat extends Model
+class MetalCaratRate extends Model
 {
-   use HasFactory;
-   protected $guarded = [];
+    use HasFactory;
+    protected $guarded = [];
 }

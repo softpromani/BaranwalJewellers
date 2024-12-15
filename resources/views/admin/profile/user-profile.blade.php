@@ -107,8 +107,8 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form>
-
+                                <form action="{{route('admin.profile-update') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="row mb-3">
                                         <label for="first_name" class="col-md-4 col-lg-3 col-form-label">First Name</label>
                                         <div class="col-md-8 col-lg-9">
@@ -190,7 +190,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="Image" class="col-md-4 col-lg-3 col-form-label">Image</label>
+                                        <label for="Image" class="col-md-4 col-lg-3 col-form-label">Logo</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="image" type="file" class="form-control" id="Image">
                                         </div>

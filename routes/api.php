@@ -23,4 +23,7 @@ Route::get('banner/list', [BannerController::class, 'list']);
 //Product
 Route::get('product/list', [ProductController::class, 'list']);
 
+// User Profile
+Route::get('user-profile', [UserController::class, 'user_profile']);
+
 
