@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Carat;
+use App\Models\Metal;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -23,6 +25,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $metals = Metal::get();
+        $carats = Carat::get();
         return view('admin.product.add');
     }
 
@@ -31,30 +35,49 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'thumbnail_image' => 'required',
+            'images' => 'nullable',
+            'packing_charge' => 'required',
+            'hallmarking_charge' => 'required',
+            'making_charge' => 'required',
+            'stock' => 'required',
+            'tax' => 'required',
+            'metal_id' => 'required',
+            'carat_id' => 'required',
+            'weight' => 'required'
+        ]);
+
        if ($request->hasFile('images')) {
-    $file = $request->file('images');
-    $path = $file->store('products', 'public');
+            $file = $request->file('images');
+            $path = $file->store('products', 'public');
+        }
 
-}
-
-if ($request->hasFile('thumbnail_image')) {
-    $file = $request->file('thumbnail_image');
-    $thumbnailpath = $file->store('products', 'public');
-}
+        if ($request->hasFile('thumbnail_image')) {
+            $file = $request->file('thumbnail_image');
+            $thumbnailpath = $file->store('products/thumbnail', 'public');
+        }
 
 
-$data = [
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'thumbnail_image' => $thumbnailpath,
+            'images' => $path ?? null,
+            'packing_charge' => $request->packing_charge,
+            'hallmarking_charge' => $request->hallmarking_charge,
+            'making_charge' => $request->making_charge,
+            'stock' => $request->stock,
+            'tax' => $request->tax,
+            'metal_id' => $request->metal_id,
+            'carat_id' => $request->carat_id,
+            'weight' => $request->weight
+        ];
 
-    'name' => $request->name,
-    'description' => $request->description,
-    'thumbnail_image' => $thumbnailpath,
-    'images' => $path ?? null,
-
-];
-
-Product::create($data);
-return redirect()->route('admin.product.index');
-
+        Product::create($data);
+        return redirect()->back()->with('Product added successfully');
     }
 
     /**
@@ -81,29 +104,50 @@ return redirect()->route('admin.product.index');
      */
     public function update(Request $request, Product $product)
     {
-    if ($request->hasFile('images')) {
-    $file = $request->file('images');
-    $path = $file->store('products', 'public');
-    Product::find($product->id)->update(['images' => $path]);
-}
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'thumbnail_image' => 'required',
+            'images' => 'nullable',
+            'packing_charge' => 'required',
+            'hallmarking_charge' => 'required',
+            'making_charge' => 'required',
+            'stock' => 'required',
+            'tax' => 'required',
+            'metal_id' => 'required',
+            'carat_id' => 'required',
+            'weight' => 'required'
+        ]);
 
+        if ($request->hasFile('images')) {
+            $file = $request->file('images');
+            $path = $file->store('products', 'public');
+            Product::find($product->id)->update(['images' => $path]);
+        }
 
-    if ($request->hasFile('thumbnail_image')) {
-    $file = $request->file('thumbnail_image');
-    $path = $file->store('products', 'public');
-    Product::find($product->id)->update(['thumbnail_image' => $path]);
-    }
+        if ($request->hasFile('thumbnail_image')) {
+            $file = $request->file('thumbnail_image');
+            $thumbnailpath = $file->store('products/thumbnail', 'public');
+            Product::find($product->id)->update(['thumbnail_image' => $path]);
+        }
 
-$data = [
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'thumbnail_image' => $thumbnailpath,
+            'images' => $path ?? null,
+            'packing_charge' => $request->packing_charge,
+            'hallmarking_charge' => $request->hallmarking_charge,
+            'making_charge' => $request->making_charge,
+            'stock' => $request->stock,
+            'tax' => $request->tax,
+            'metal_id' => $request->metal_id,
+            'carat_id' => $request->carat_id,
+            'weight' => $request->weight
+        ];
 
-    'name' => $request->name,
-    'description' => $request->description,
-
-
-];
-
-$product = $product::find($product->id)->update($data);
-return redirect()->route('admin.product.index');
+        $product = $product::find($product->id)->update($data);
+        return redirect()->back()->with('Product updated successfully');
 
     }
 
@@ -113,7 +157,6 @@ return redirect()->route('admin.product.index');
     public function destroy(Product $product)
     {
        $product->delete();
-       return redirect()->route('admin.product.index');
-
+       return redirect()->back()->with('Product deleted successfully');
     }
 }

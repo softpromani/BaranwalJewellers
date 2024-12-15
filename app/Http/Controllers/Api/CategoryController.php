@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     function list()
     {
-        $categories = Category::where('status', 1)->orderBy('sequence')->get();
+        $categories = Category::active()->orderBy('sequence')->get();
 
         return response()->json([
             'success' => true,
