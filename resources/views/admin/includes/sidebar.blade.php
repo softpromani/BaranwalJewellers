@@ -82,7 +82,7 @@
                     class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
+                {{-- <li>
                     <a href="tables-general.html">
                         <i class="bi bi-circle"></i><span>Company Setup</span>
                     </a>
@@ -91,10 +91,10 @@
                     <a href="tables-data.html">
                         <i class="bi bi-circle"></i><span>Live Rate</span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('admin.metal-rate') }}">
-                        <i class="bi bi-circle"></i><span>Metal Rate</span>
+                        <i class="bi bi-circle"></i><span>Metal Rate Setup</span>
                     </a>
                 </li>
             </ul>
