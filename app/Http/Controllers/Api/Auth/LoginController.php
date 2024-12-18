@@ -35,8 +35,8 @@ class LoginController extends Controller
         $user->is_registered=true;
        }
        $token = $user->createToken('Api Token')->accessToken;
-       return response()->json(['data'=>$user,'token'=>$token],200);
+       return response()->json(['data'=>$user,'token'=>$token],status: 200);
 
-      
+
     }
 }

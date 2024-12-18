@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class APIController extends Controller
@@ -22,23 +23,23 @@ class APIController extends Controller
             'phone' => $admin->phone
         ];
 
-        return $data;
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+        ], 200);
     }
 
     function userCart()
     {
         $cart = Cart::with('product')->where('user_id', auth('api')->user()->id)->get();
 
-        if($cart)
-        {
+        if ($cart) {
             return response()->json([
                 'success' => true,
-                'message' => 'Product added to cart successfully',
+                'message' => 'Product fetched successfully',
                 'data' => $cart
             ], 200);
-        }
-        else
-        {
+        } else {
             return response()->json([
                 'success' => false,
                 'message' => 'Something went wrong!',
@@ -49,43 +50,62 @@ class APIController extends Controller
 
     function addToCart(Request $request)
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'product_id' => 'required',
             'quantity' => 'required',
             'price' => 'required',
         ]);
 
-        $data = [
-            'user_id' => auth('api')->user()->id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-            'price' => $request->price
-        ];
 
-        $cart = Cart::create($data);
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], status: 422);
+        }
 
-        if($cart)
-        {
+        $existProduct = Cart::where('user_id', auth('api')->user()->id)
+            ->where('product_id', $request->product_id)
+            ->first();
+
+        if ($existProduct) {
             return response()->json([
                 'success' => true,
-                'message' => 'Product added to cart successfully',
-                'data' => $cart
-            ], 200);
-        }
-        else
-        {
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong!',
+                'message' => 'Product already added!',
                 'data' => Null
             ], 200);
+        } else {
+            $data = [
+                'user_id' => auth('api')->user()->id,
+                'product_id' => $request->product_id,
+                'quantity' => $request->quantity,
+                'price' => $request->price
+            ];
+
+            $cart = Cart::create($data);
+
+            if ($cart) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Product added to cart successfully',
+                    'data' => $cart
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Something went wrong!',
+                    'data' => Null
+                ], 200);
+            }
         }
     }
 
     public function placeOrder(Request $request)
     {
         // Validate the incoming request
-        $validated = $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id', // Ensure the user exists
             'products' => 'required|array', // Products should be an array
             'products.*.product_id' => 'required|exists:products,id', // Each product must exist
@@ -133,6 +153,43 @@ class APIController extends Controller
                 'message' => 'Failed to place order!',
                 'error' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+    public function removeFromCart($id)
+    {
+        $removecart = Cart::find($id)->delete();
+        if ($removecart) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Product remove from cart successfully',
+                'data' => $removecart
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+                'data' => Null
+            ], 200);
+        }
+    }
+
+    public function get_order(){
+
+        $order = Order::with('product')->where('user_id', auth('api')->user()->id)->get();
+
+        if ($order) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Order fetch successfully',
+                'data' => $order
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+                'data' => Null
+            ], 200);
         }
     }
 }

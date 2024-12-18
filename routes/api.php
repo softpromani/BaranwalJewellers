@@ -37,6 +37,13 @@ Route::middleware(['auth:api'])->group(function () {
     //add-to-cart
     Route::post('/add-cart', [APIController::class, 'addToCart']);
 
-    //add-to-cart
+    //place-order
     Route::post('/place-order', [APIController::class, 'placeOrder']);
+
+    //remove-cart
+    Route::post('/remove-cart/{id}', [APIController::class, 'removeFromCart']);
+
+    //get-order
+    Route::get('/get-order', [APIController::class, 'get_order']);
+
 });
