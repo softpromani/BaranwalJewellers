@@ -19,26 +19,30 @@
                 <div class="card-body">
                     <div class="d-flex flex-wrap flex-md-nowrap gap-10 justify-content-between mb-4">
                         <div class="d-flex flex-column gap-10 mt-3">
-                            <h4 class="text-capitalize">Order ID #100001</h4>
+                            <h4 class="text-capitalize">Order ID #{{ $order->order_id }}</h4>
                             <div class="">
-                                27 Nov, 2024 , 12:24 PM
+                                {{ \Carbon\Carbon::parse($order->created_at)->format('d M, Y') }}
                             </div>
                         </div>
                         <div class="text-sm-right flex-grow-1">
                             <div class="d-flex flex-column gap-2 mt-3">
                                 <div class="order-status d-flex justify-content-sm-end gap-10 text-capitalize">
                                     <span class="title-color">Status: </span>
-                                    <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Confirmed</span>
-                <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
+                                    @if ($order->order_status == 'confirmed')
+                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Confirmed</span>
+                                    @else
+                                        <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
+                                    @endif
                                 </div>
 
                                 <div class="payment-status d-flex justify-content-sm-end gap-10">
                                     <span class="title-color">Payment Status:</span>
-                                    <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Paid</span>
-                <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Unpaid</span>
+                                    @if ($order->order_status == 'paid')
+                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Paid</span>
+                                    @else
+                                        <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Unpaid</span>
+                                    @endif
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -57,6 +61,7 @@
                             </thead>
 
                             <tbody>
+                                @forelse ($order->order_details as $detail)
                                 <tr>
                                     <td>1</td>
                                     <td>
@@ -80,6 +85,12 @@
                                     <td>₹1,099.00</td>
                                     <td>₹901.00</td>
                                 </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-center" colspan="6">No data found!</td>
+                                </tr>
+                                @endforelse
+
                             </tbody>
                         </table>
                     </div>

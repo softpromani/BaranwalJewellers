@@ -13,7 +13,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable,HasApiTokens;
     protected $guarded = [];
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url', 'full_name'];
 
     protected static function boot()
     {
@@ -30,7 +30,7 @@ class User extends Authenticatable
         return $query->where('status', 1)->where('is_admin', 0);
     }
 
-    function getNameAttrribute()
+    function getFullNameAttrribute()
     {
         return $this->first_name.' '.$this->last_name;
     }
@@ -38,5 +38,10 @@ class User extends Authenticatable
     public function getImageUrlAttribute()
     {
         return env('APP_URL') . 'storage/' . $this->image;
+    }
+
+    function carts()
+    {
+        return $this->hasMany(Cart::class, 'user_id');
     }
 }

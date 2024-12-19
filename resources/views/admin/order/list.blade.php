@@ -32,20 +32,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>ORDER-123</td>
-            <td>24 Nov,2024</td>
-            <td>Customer name<br/><span class="badge bg-info">12345678</span></td>
-            <td>₹544</td>
-            <td>
-                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Completed</span>
-                <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
-            </td>
-            <td>
-                <a class="btn btn-warning" href="{{ route('admin.orderDetail', 1) }}"><i class="bi bi-eye"></i></a>
-            </td>
-          </tr>
+            @forelse ($orders as $order)
+            <tr>
+                <th scope="row">{{ $loop->index+1 }}</th>
+                <td>{{ $order->order_id }}</td>
+                <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d M,Y') }}</td>
+                <td>{{ $order->user->name }}<br/><span class="badge bg-info">{{ $order->user->phone }}</span></td>
+                <td>₹ {{ $order->order_amount }}</td>
+                <td>
+                    @if ($order->order_status == 'completed')
+                      <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Completed</span>
+                    @else
+                      <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
+                    @endif
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="{{ route('admin.orderDetail',  $order->id ) }}"><i class="bi bi-eye"></i></a>
+                </td>
+              </tr>
+
+            @empty
+              <tr>
+                <td colspan="7" class="text-center">No data found!</td>
+              </tr>
+            @endforelse
 
         </tbody>
       </table>

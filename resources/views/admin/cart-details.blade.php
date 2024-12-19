@@ -28,12 +28,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <th scope="row">1</th>
-            <td>Brandon Jacob</td>
-            <td>Designer</td>
-          </tr>
+            @forelse ($carts as $cart)
+            <tr>
+                <td scope="row">{{ $loop->index+1 }}</td>
+                <td scope="row">
+                    <img src="{{ asset('storage/'.$cart->product->thumbnail_image) }}" width="50" />
+                </td>
+                <td>{{ $cart->product->name }}</td>
+                <td>₹ {{ $cart->product->final_amount }}</td>
+              </tr>
+            @empty
+              <tr>
+                <td colspan="4" class="text-center">No data found!</td>
+              </tr>
+            @endforelse
+
 
         </tbody>
       </table>

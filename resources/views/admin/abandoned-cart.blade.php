@@ -30,15 +30,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Brandon Jacob</td>
-            <td>Designer</td>
-            <td>1</td>
-            <td>
-                <a class="btn btn-warning" href="{{ route('admin.cartDetail', 1) }}"><i class="bi bi-eye"></i></a>
-            </td>
-          </tr>
+          @forelse ($users as $user)
+            <tr>
+                <th scope="row">{{ $loop->index+1 }}</th>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->phone }}</td>
+                <td>
+                    <span class="badge bg-info text-dark">{{ $user->carts->count() }}</span></span>
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="{{ route('admin.cartDetail', $user->id) }}"><i class="bi bi-eye"></i></a>
+                </td>
+            </tr>
+          @empty
+            <tr>
+                <td colspan="5" class="text-center">No data found!</td>
+            </tr>
+          @endforelse
 
         </tbody>
       </table>

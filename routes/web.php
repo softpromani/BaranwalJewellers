@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MetalrateController;
@@ -25,15 +27,11 @@ Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], functi
     Route::post('metal-rate', [MetalrateController::class, 'update'])->name('metal-rates');
     Route::post('profile-update', [AuthController::class, 'profile_update'])->name('profile-update');
 
+    Route::get('abandoned-cart', [CartController::class, 'abandonedCart'])->name('abandonedCart');
+    Route::get('cart-detail/{id}', [CartController::class, 'cartDetail'])->name('cartDetail');
 
-
-
-
-
-    Route::get('abandoned-cart', [AdminController::class, 'abandonedCart'])->name('abandonedCart');
-    Route::get('order-list', [AdminController::class, 'orderList'])->name('orderList');
-    Route::get('order-detail/{id}', [AdminController::class, 'orderDetail'])->name('orderDetail');
-    Route::get('cart-detail/{id}', [AdminController::class, 'cartDetail'])->name('cartDetail');
+    Route::get('order-list', [OrderController::class, 'orderList'])->name('orderList');
+    Route::get('order-detail/{id}', [OrderController::class, 'orderDetail'])->name('orderDetail');
 
     Route::get('customer-list', [AdminController::class, 'customerList'])->name('customerList');
 

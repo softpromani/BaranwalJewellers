@@ -13,26 +13,6 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    function abandonedCart()
-    {
-        return view('admin.abandoned-cart');
-    }
-
-    function orderList()
-    {
-        return view('admin.order.list');
-    }
-
-    function orderDetail($order_id)
-    {
-        return view('admin.order.detail');
-    }
-
-    function cartDetail($user_id)
-    {
-        return view('admin.cart-details');
-    }
-
     function customerList(Request $request)
     {
         $query = User::query()->active();
