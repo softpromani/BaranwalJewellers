@@ -181,7 +181,7 @@ class APIController extends Controller
         if ($order) {
             return response()->json([
                 'success' => true,
-                'message' => 'Order fetch successfully',
+                'message' => 'Order fetched successfully',
                 'data' => $order
             ], 200);
         } else {
