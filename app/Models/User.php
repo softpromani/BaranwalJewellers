@@ -13,7 +13,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable,HasApiTokens;
     protected $guarded = [];
-    protected $appends = ['image_url', 'full_name'];
+    protected $appends = ['image_url'];
 
     protected static function boot()
     {
