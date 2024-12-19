@@ -176,7 +176,7 @@ class APIController extends Controller
 
     public function get_order(){
 
-        $order = Order::with('product')->where('user_id', auth('api')->user()->id)->get();
+        $order = Order::with('order_details')->where('user_id', auth('api')->user()->id)->get();
 
         if ($order) {
             return response()->json([
