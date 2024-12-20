@@ -158,10 +158,10 @@
                     </div>
                     <div class="media flex-wrap gap-3">
                         <div class="media-body d-flex flex-column gap-1">
-                            <span class="title-color"><strong>Ranganath V A </strong></span>
-                            <span class="title-color break-all"><strong>+919632688893</strong></span>
-                            <span class="title-color break-all">ranganath.ava@gmail.com</span>
-                            <span class="title-color break-all">lko</span>
+                            <span class="title-color"><strong>{{ $order->user->name ?? '' }} </strong></span>
+                            <span class="title-color break-all"><strong>+91 {{ $order->user->phone ?? '' }}</strong></span>
+                            <span class="title-color break-all">{{ $order->email ?? 'N/A' }}</span>
+                            <span class="title-color break-all">{{ $order->address ?? 'N/A' }}</span>
                         </div>
                     </div>
                 </div>
