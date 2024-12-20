@@ -133,14 +133,13 @@ class ProductController extends Controller
         if ($request->hasFile('thumbnail_image')) {
             $file = $request->file('thumbnail_image');
             $thumbnailpath = $file->store('products/thumbnail', 'public');
-            Product::find($product->id)->update(['thumbnail_image' => $path]);
+            Product::find($product->id)->update(['thumbnail_image' => $thumbnailpath]);
         }
 
         $data = [
             'name' => $request->name,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'thumbnail_image' => $thumbnailpath,
             // 'images' => $path ?? null,
             'packing_charge' => $request->packing_charge,
             'hallmarking_charge' => $request->hallmarking_charge,
