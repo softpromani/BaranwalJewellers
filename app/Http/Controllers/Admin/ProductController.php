@@ -112,7 +112,7 @@ class ProductController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'description' => 'required',
-            'thumbnail_image' => 'required',
+            'thumbnail_image' => 'nullable',
             // 'images' => 'nullable',
             'packing_charge' => 'required',
             'hallmarking_charge' => 'required',
