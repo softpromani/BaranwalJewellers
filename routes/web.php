@@ -25,7 +25,6 @@ Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middle
     Route::resource('product', ProductController::class);
     Route::get('metal-rate', [MetalrateController::class, 'metal_rate'])->name('metal-rate');
     Route::post('metal-rate', [MetalrateController::class, 'update'])->name('metal-rates');
-    Route::post('profile-update', [AuthController::class, 'profile_update'])->name('profile-update');
 
     Route::get('abandoned-cart', [CartController::class, 'abandonedCart'])->name('abandonedCart');
     Route::get('cart-detail/{id}', [CartController::class, 'cartDetail'])->name('cartDetail');
@@ -37,6 +36,8 @@ Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middle
 
     //User profiles
     Route::get('user-profile', [UserController::class, 'userProfile'])->name('userProfile');
+    Route::post('profile-update', [AuthController::class, 'profile_update'])->name('profile-update');
+
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
     Route::resource('notification', NotificationController::class);

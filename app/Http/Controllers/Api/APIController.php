@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Carat;
 use App\Models\Cart;
+use App\Models\Metal;
+use App\Models\MetalCaratRate;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\User;
@@ -20,7 +23,8 @@ class APIController extends Controller
             'about' => $admin->about,
             'company' => $admin->company,
             'address' => $admin->address,
-            'phone' => $admin->phone
+            'phone' => $admin->phone,
+            'alternate_number' => $admin->alternate_number,
         ];
 
         return response()->json([
@@ -123,7 +127,7 @@ class APIController extends Controller
             // Create an Order
             $order = Order::create([
                 'user_id' => auth('api')->user()->id,
-                'order_id' => uniqid('ORD-'),
+                'order_id' => 'ORD-'.Order::latest()->first()->id + 1,
                 'order_status' => 'pending',
                 'payment_status' => 'unpaid',
                 'order_amount' => $orderAmount,
@@ -137,7 +141,7 @@ class APIController extends Controller
                     'order_id' => $order->id,
                     'product_id' => $product['product_id'],
                     'quantity' => $product['quantity'],
-                    'price' => $product['price'],
+                    'price' => $product['price'] * $product['quantity'],
                     'delivery_status' => 'pending',
                     'payment_status' => 'unpaid',
                 ]);
@@ -186,6 +190,73 @@ class APIController extends Controller
                 'success' => true,
                 'message' => 'Order fetched successfully',
                 'data' => $order
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+                'data' => Null
+            ], 200);
+        }
+    }
+
+    function caratList()
+    {
+        $data = Carat::get();
+
+        if ($data) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Carat fetched successfully',
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+                'data' => Null
+            ], 200);
+        }
+    }
+
+    function calculateGoldRate(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'carat_id' => 'required',
+            'weight' => 'required',
+            'making_charge' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validate->errors(),
+            ], status: 422);
+        }
+
+        $validateData = $validate->validate();
+        $final_amount = 0.0;
+        $gst_percentage = 3;
+        $metal = Metal::where('name', '%gold%')->first();
+        $gold_amount = MetalCaratRate::where('metal_id', $metal->id)->where('carat_id', $validateData['carat_id'])->first();
+        $gold_weight_amount = $gold_amount->price * $validateData['weight'];
+        $making_charge_amount = $gold_weight_amount * ($validateData['making_charge'] / 100);
+        $gst_charge_amount = $gold_weight_amount * ($gst_percentage / 100);
+        $final_amount = $gold_weight_amount + $making_charge_amount + $gst_charge_amount;
+        $bifurcation = [
+            'gold_weight' => $validateData['weight'],
+            'gold_weight_amount' => $gold_weight_amount,
+            'making_charge' => $validateData['making_charge'] / $making_charge_amount,
+            'gst_charge' => $validateData['making_charge'] / $making_charge_amount,
+            'final_amount' => $final_amount
+        ];
+
+
+        if ($bifurcation) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Rate calculated successfully',
+                'data' => $bifurcation
             ], 200);
         } else {
             return response()->json([

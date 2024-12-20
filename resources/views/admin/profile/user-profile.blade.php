@@ -96,6 +96,11 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Alernate Phone</div>
+                                    <div class="col-lg-9 col-md-8">+91 {{ $user->alternate_number ?? '' }}</div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Email</div>
                                     <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
                                 </div>
@@ -136,6 +141,14 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="phone" type="text" class="form-control" id="Phone"
                                                 value="{{ $user->phone ?? '' }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="alternate_number" class="col-md-4 col-lg-3 col-form-label">Alternate Phone</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="alternate_number" type="number" class="form-control" id="alternate_number"
+                                                value="{{ $user->alternate_number ?? '' }}">
                                         </div>
                                     </div>
 

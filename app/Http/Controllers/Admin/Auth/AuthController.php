@@ -77,6 +77,7 @@ class AuthController extends Controller
             'last_name' => 'nullable',
             'email' => 'nullable|email',
             'phone' => 'nullable',
+            'alternate_number' => 'nullable',
             'city' => 'nullable',
             'state' => 'nullable',
             'country' => 'nullable',
@@ -101,6 +102,7 @@ class AuthController extends Controller
             'last_name' => $request->last_name ?? $profile->last_name,
             'email' => $request->email ?? $profile->email,
             'phone' => $request->phone ?? $profile->phone,
+            'alternate_number' => $request->alternate_number ?? $profile->alternate_number,
             'city' => $request->city ?? $profile->city,
             'state' => $request->state ?? $profile->state,
             'country' =>$request->country ?? $profile->country,
@@ -109,7 +111,6 @@ class AuthController extends Controller
             'company' =>$request->company ?? $profile->company,
             'profession' => $request->profession ?? $profile->profession,
             'address' => $request->address ?? $profile->address,
-            'password' => $request->password ?? $profile->password,
 
         ]);
 

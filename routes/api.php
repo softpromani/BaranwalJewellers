@@ -27,6 +27,9 @@ Route::get('product/category/{id}', [ProductController::class, 'listProductViaCa
 //Business Setting
 Route::get('business-setting', [APIController::class, 'businessSetting']);
 
+//Business Setting
+Route::get('carat/list', [APIController::class, 'caratList']);
+
 Route::middleware(['auth:api'])->group(function () {
     // User Profile
     Route::get('user-profile', [UserController::class, 'user_profile']);
