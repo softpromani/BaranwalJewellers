@@ -31,6 +31,8 @@ Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middle
 
     Route::get('order-list', [OrderController::class, 'orderList'])->name('orderList');
     Route::get('order-detail/{id}', [OrderController::class, 'orderDetail'])->name('orderDetail');
+    Route::post('updateorder-status/{id}', [OrderController::class, 'updateOrderStatus'])->name('update_OrderStatus');
+
 
     Route::get('customer-list', [AdminController::class, 'customerList'])->name('customerList');
 

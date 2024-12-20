@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Api\APIController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\BannerController;
