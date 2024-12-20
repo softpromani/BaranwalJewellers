@@ -223,47 +223,60 @@ class APIController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'carat_id' => 'required',
-            'weight' => 'required',
-            'making_charge' => 'required',
+            'weight' => 'required|numeric',
+            'making_charge' => 'required|numeric',
         ]);
 
         if ($validate->fails()) {
             return response()->json([
                 'message' => 'Validation failed',
                 'errors' => $validate->errors(),
-            ], status: 422);
+            ], 422);
         }
 
-        $validateData = $validate->validate();
+        $validateData = $validate->validated();
+        $gst_percentage = 3; // GST percentage
         $final_amount = 0.0;
-        $gst_percentage = 3;
+
+        // Fetch the metal data and calculate gold weight amount
         $metal = Metal::find(1);
-        $gold_amount = MetalCaratRate::where('metal_id', $metal->id)->where('carat_id', $validateData['carat_id'])->first();
-        $gold_weight_amount = $gold_amount->price * $validateData['weight'];
-        $making_charge_amount = $gold_weight_amount * ($validateData['making_charge'] / 100);
-        $gst_charge_amount = $gold_weight_amount * ($gst_percentage / 100);
-        $final_amount = $gold_weight_amount + $making_charge_amount + $gst_charge_amount;
-        $bifurcation = [
-            'gold_weight' => $validateData['weight'],
-            'gold_weight_amount' => $gold_weight_amount,
-            'making_charge' => $validateData['making_charge'] / $making_charge_amount,
-            'gst_charge' => $validateData['making_charge'] / $making_charge_amount,
-            'final_amount' => $final_amount
-        ];
+        $gold_amount = MetalCaratRate::where('metal_id', $metal->id)
+            ->where('carat_id', $validateData['carat_id'])
+            ->first();
 
-
-        if ($bifurcation) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Rate calculated successfully',
-                'data' => $bifurcation
-            ], 200);
-        } else {
+        if (!$gold_amount) {
             return response()->json([
                 'success' => false,
-                'message' => 'Something went wrong!',
-                'data' => Null
-            ], 200);
+                'message' => 'Metal carat rate not found!',
+                'data' => null,
+            ], 404);
         }
+
+        // Calculations
+        $gold_weight_amount = $gold_amount->price * $validateData['weight'];
+        $making_charge_amount = $gold_weight_amount * ($validateData['making_charge'] / 100);
+        $gst_charge_amount = ($gold_weight_amount + $making_charge_amount) * ($gst_percentage / 100);
+        $final_amount = $gold_weight_amount + $making_charge_amount + $gst_charge_amount;
+
+        // Formatting the final amount to 2 decimal places
+        $final_amount = number_format($final_amount, 2, '.', '');
+
+        // Bifurcation details
+        $bifurcation = [
+            'gold_weight' => $validateData['weight'],
+            'gold_weight_amount' => number_format($gold_weight_amount, 2, '.', ''),
+            'making_charge_percentage' => $validateData['making_charge'],
+            'making_charge_amount' => number_format($making_charge_amount, 2, '.', ''),
+            'gst_percentage' => $gst_percentage,
+            'gst_charge_amount' => number_format($gst_charge_amount, 2, '.', ''),
+            'final_amount' => $final_amount,
+        ];
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Rate calculated successfully',
+            'data' => $bifurcation,
+        ], 200);
     }
+
 }
