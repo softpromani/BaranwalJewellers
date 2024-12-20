@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Carat;
+use App\Models\Category;
 use App\Models\Metal;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class ProductController extends Controller
     {
         $metals = Metal::get();
         $carats = Carat::get();
-        return view('admin.product.add', compact('metals','carats'));
+        $categories = Category::get();
+        return view('admin.product.add', compact('metals','carats','categories'));
     }
 
     /**
@@ -37,6 +39,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
             'thumbnail_image' => 'required',
             // 'images' => 'nullable',
@@ -62,6 +65,7 @@ class ProductController extends Controller
 
         $data = [
             'name' => $request->name,
+            'category_id' => $request->category_id,
             'description' => $request->description,
             'thumbnail_image' => $thumbnailpath,
             // 'images' => $path ?? null,
@@ -93,8 +97,10 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $editproduct = $product;
-        $products = Product::all();
-        return view('admin.product.add', compact('editproduct', 'products'));
+        $metals = Metal::get();
+        $carats = Carat::get();
+        $categories = Category::get();
+        return view('admin.product.add', compact('editproduct', 'metals','carats','categories'));
     }
 
     /**
@@ -104,8 +110,9 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
-            'thumbnail_image' => 'required',
+            'thumbnail_image' => 'nullable',
             // 'images' => 'nullable',
             'packing_charge' => 'required',
             'hallmarking_charge' => 'required',
@@ -126,13 +133,13 @@ class ProductController extends Controller
         if ($request->hasFile('thumbnail_image')) {
             $file = $request->file('thumbnail_image');
             $thumbnailpath = $file->store('products/thumbnail', 'public');
-            Product::find($product->id)->update(['thumbnail_image' => $path]);
+            Product::find($product->id)->update(['thumbnail_image' => $thumbnailpath]);
         }
 
         $data = [
             'name' => $request->name,
+            'category_id' => $request->category_id,
             'description' => $request->description,
-            'thumbnail_image' => $thumbnailpath,
             // 'images' => $path ?? null,
             'packing_charge' => $request->packing_charge,
             'hallmarking_charge' => $request->hallmarking_charge,

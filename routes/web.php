@@ -17,7 +17,7 @@ Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::post('/change-password', [AuthController::class, 'changePassword'])->name('admin.change_password');
 
 
-Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function(){
+Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth' ], function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::resource('category', CategoryController::class);

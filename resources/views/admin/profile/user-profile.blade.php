@@ -20,14 +20,14 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <h2>Alok Baranwal</h2>
-                        <h3>Businessman</h3>
+                        <img src="{{ asset('storage/'.$user->image ?? '') }}" alt="Profile" class="rounded-circle">
+                        <h2>{{ $user->name ?? 'Admin User' }}</h2>
+                        <h3>Admin</h3>
                         <div class="social-links mt-2">
-                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            <a href="{{ $user->twitter ?? '' }}" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="{{ $user->facebook ?? '' }}" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="{{ $user->instagram ?? '' }}" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="{{ $user->linkedin ?? '' }}" class="linkedin"><i class="bi bi-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -61,45 +61,43 @@
 
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                 <h5 class="card-title">About</h5>
-                                <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque
-                                    temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae
-                                    quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+                                <p class="small fst-italic">{{ $user->about ?? 'N/A' }}</p>
 
                                 <h5 class="card-title">Profile Details</h5>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                                    <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+                                    <div class="col-lg-9 col-md-8">{{ $user->name ?? 'Admmin User' }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Company</div>
-                                    <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+                                    <div class="col-lg-9 col-md-8">{{ $user->company ?? 'Baranwal Jewellers' }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Profession</div>
-                                    <div class="col-lg-9 col-md-8">Web Designer</div>
+                                    <div class="col-lg-9 col-md-8">{{ $user->profession ?? 'Businessman' }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Country</div>
-                                    <div class="col-lg-9 col-md-8">USA</div>
+                                    <div class="col-lg-9 col-md-8">{{ $user->country ?? 'India' }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+                                    <div class="col-lg-9 col-md-8">{{ $user->address ?? 'Bahadurganj, Ghazipur' }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                                    <div class="col-lg-9 col-md-8">+91 {{ $user->phone }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                                    <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
                                 </div>
 
                             </div>
@@ -113,7 +111,7 @@
                                         <label for="first_name" class="col-md-4 col-lg-3 col-form-label">First Name</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="first_name" type="text" class="form-control" id="first_name"
-                                                value="Kevin Anderson">
+                                                value="{{ $user->first_name ?? 'Admin' }}">
                                         </div>
                                     </div>
 
@@ -121,7 +119,7 @@
                                         <label for="last_name" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="last_name" type="text" class="form-control" id="last_name"
-                                                value="Kevin Anderson">
+                                                value="{{ $user->last_name ?? 'User' }}">
                                         </div>
                                     </div>
 
@@ -129,15 +127,7 @@
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="email" type="email" class="form-control" id="Email"
-                                                value="k.anderson@example.com">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Password</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone"
-                                                value="(436) 486-3538 x29071">
+                                                value="{{ $user->email ?? '' }}">
                                         </div>
                                     </div>
 
@@ -145,7 +135,7 @@
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="phone" type="text" class="form-control" id="Phone"
-                                                value="(436) 486-3538 x29071">
+                                                value="{{ $user->phone ?? '' }}">
                                         </div>
                                     </div>
 
@@ -153,23 +143,23 @@
                                         <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="address" type="text" class="form-control" id="Address"
-                                                value="A108 Adam Street, New York, NY 535022">
+                                                value="{{ $user->address ?? '' }}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">City</label>
+                                        <label for="city" class="col-md-4 col-lg-3 col-form-label">City</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone"
-                                                value="(436) 486-3538 x29071">
+                                            <input name="city" type="text" class="form-control" id="city"
+                                                value="{{ $user->city ?? '' }}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">State</label>
+                                        <label for="state" class="col-md-4 col-lg-3 col-form-label">State</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone"
-                                                value="(436) 486-3538 x29071">
+                                            <input name="state" type="text" class="form-control" id="state"
+                                                value="{{ $user->state ?? '' }}">
                                         </div>
                                     </div>
 
@@ -177,15 +167,15 @@
                                         <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="country" type="text" class="form-control" id="Country"
-                                                value="USA">
+                                                value="{{ $user->country ?? '' }}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Pincode</label>
+                                        <label for="pincode" class="col-md-4 col-lg-3 col-form-label">Pincode</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone"
-                                                value="(436) 486-3538 x29071">
+                                            <input name="pincode" type="number" class="form-control" id="pincode"
+                                                value="{{ $user->pincode ?? '' }}">
                                         </div>
                                     </div>
 
@@ -194,12 +184,13 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="image" type="file" class="form-control" id="Image">
                                         </div>
+                                        <img src="{{ asset('storage/'.$user->image ?? '') }}" class="img-responsive" width="50" />
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                                            <textarea name="about" class="form-control" id="about" style="height: 100px">{{ $user->about ?? '' }}</textarea>
                                         </div>
                                     </div>
 
@@ -207,7 +198,7 @@
                                         <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="company" type="text" class="form-control" id="company"
-                                                value="Lueilwitz, Wisoky and Leuschke">
+                                                value="{{ $user->company ?? '' }}">
                                         </div>
                                     </div>
 
@@ -215,7 +206,7 @@
                                         <label for="Job" class="col-md-4 col-lg-3 col-form-label">Profession</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="job" type="text" class="form-control" id="Job"
-                                                value="Web Designer">
+                                                value="{{ $user->profession ?? '' }}">
                                         </div>
                                     </div>
 
@@ -224,7 +215,7 @@
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="twitter" type="text" class="form-control" id="Twitter"
-                                                value="https://twitter.com/#">
+                                                value="{{ $user->twitter ?? '' }}">
                                         </div>
                                     </div>
 
@@ -233,7 +224,7 @@
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="facebook" type="text" class="form-control" id="Facebook"
-                                                value="https://facebook.com/#">
+                                                value="{{ $user->facebook ?? '' }}">
                                         </div>
                                     </div>
 
@@ -242,7 +233,7 @@
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="instagram" type="text" class="form-control" id="Instagram"
-                                                value="https://instagram.com/#">
+                                                value="{{ $user->instagram ?? '' }}">
                                         </div>
                                     </div>
 
@@ -251,7 +242,7 @@
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="linkedin" type="text" class="form-control" id="Linkedin"
-                                                value="https://linkedin.com/#">
+                                                value="{{ $user->linkedin ?? '' }}">
                                         </div>
                                     </div>
 

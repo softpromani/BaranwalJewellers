@@ -22,9 +22,8 @@ Route::get('banner/list', [BannerController::class, 'list']);
 //Product
 Route::get('product/list', [ProductController::class, 'list']);
 
-
-
-
+//Product via category
+Route::get('product/category/{id}', [ProductController::class, 'listProductViaCategory']);
 
 //Business Setting
 Route::get('business-setting', [APIController::class, 'businessSetting']);

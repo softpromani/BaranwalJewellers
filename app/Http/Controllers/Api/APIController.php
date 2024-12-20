@@ -76,11 +76,12 @@ class APIController extends Controller
                 'data' => Null
             ], 200);
         } else {
+            $product_price = $request->price * $request->quantity;
             $data = [
                 'user_id' => auth('api')->user()->id,
                 'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
-                'price' => $request->price
+                'price' => $product_price
             ];
 
             $cart = Cart::create($data);
@@ -176,12 +177,14 @@ class APIController extends Controller
 
     public function get_order(){
 
-        $order = Order::with('product')->where('user_id', auth('api')->user()->id)->get();
+        $order = Order::with('order_details')
+                ->where('user_id', auth('api')->user()->id)
+                ->get();
 
         if ($order) {
             return response()->json([
                 'success' => true,
-                'message' => 'Order fetch successfully',
+                'message' => 'Order fetched successfully',
                 'data' => $order
             ], 200);
         } else {
