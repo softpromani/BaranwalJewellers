@@ -20,7 +20,7 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <img src="{{ asset('storage/'.$user->image ?? '') }}" alt="Profile" class="rounded-circle">
                         <h2>{{ $user->name ?? 'Admin User' }}</h2>
                         <h3>Admin</h3>
                         <div class="social-links mt-2">
@@ -184,6 +184,7 @@
                                         <div class="col-md-8 col-lg-9">
                                             <input name="image" type="file" class="form-control" id="Image">
                                         </div>
+                                        <img src="{{ asset('storage/'.$user->image ?? '') }}" class="img-responsive" width="50" />
                                     </div>
 
                                     <div class="row mb-3">
