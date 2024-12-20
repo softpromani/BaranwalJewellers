@@ -76,11 +76,12 @@ class APIController extends Controller
                 'data' => Null
             ], 200);
         } else {
+            $product_price = $request->price * $request->quantity;
             $data = [
                 'user_id' => auth('api')->user()->id,
                 'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
-                'price' => $request->price
+                'price' => $product_price
             ];
 
             $cart = Cart::create($data);
