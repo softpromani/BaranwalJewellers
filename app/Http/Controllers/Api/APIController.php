@@ -237,7 +237,7 @@ class APIController extends Controller
         $validateData = $validate->validate();
         $final_amount = 0.0;
         $gst_percentage = 3;
-        $metal = Metal::where('name', '%gold%')->first();
+        $metal = Metal::find(1);
         $gold_amount = MetalCaratRate::where('metal_id', $metal->id)->where('carat_id', $validateData['carat_id'])->first();
         $gold_weight_amount = $gold_amount->price * $validateData['weight'];
         $making_charge_amount = $gold_weight_amount * ($validateData['making_charge'] / 100);
