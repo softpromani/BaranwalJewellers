@@ -28,8 +28,11 @@ Route::get('product/category/{id}', [ProductController::class, 'listProductViaCa
 //Business Setting
 Route::get('business-setting', [APIController::class, 'businessSetting']);
 
-//Business Setting
+//Carat List
 Route::get('carat/list', [APIController::class, 'caratList']);
+
+//Calculate Gold Rate
+Route::post('calculate-rate', [APIController::class, 'calculateGoldRate']);
 
 Route::middleware(['auth:api'])->group(function () {
     // User Profile
