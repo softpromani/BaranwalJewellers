@@ -127,7 +127,7 @@ class APIController extends Controller
             // Create an Order
             $order = Order::create([
                 'user_id' => auth('api')->user()->id,
-                'order_id' => 'ORD-'.Order::latest()->first()->id + 1,
+                'order_id' => 'ORD-' . (Order::latest()->first()?->id + 1 ?? 1),
                 'order_status' => 'pending',
                 'payment_status' => 'unpaid',
                 'order_amount' => $orderAmount,
