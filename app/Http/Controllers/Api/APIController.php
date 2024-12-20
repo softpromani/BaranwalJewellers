@@ -131,6 +131,7 @@ class APIController extends Controller
                 'order_status' => 'pending',
                 'payment_status' => 'unpaid',
                 'order_amount' => $orderAmount,
+                'disount_amount' => isset($request->discount_amount) ? $request->discount_amount :  0.00,
                 'payment_method' => 'cash_on_delivery',
                 'payment_note' => $request->payment_note ?? null,
             ]);

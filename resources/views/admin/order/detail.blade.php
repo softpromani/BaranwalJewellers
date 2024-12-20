@@ -62,7 +62,7 @@
                                     <td>
                                         <img class="avatar avatar-60 rounded img-fit"
                                         src="{{ asset('storage/'.$detail->product->thumbnail_image) }}"
-                                        alt="Image Description">
+                                        alt="Image Description" width="50">
                                     </td>
                                     <td>
                                         <div class="media align-items-center gap-10">
@@ -74,7 +74,7 @@
                                         </div>
 
                                     </td>
-                                    
+
                                     <td>₹ {{ $detail->product->final_amount }}</td>
                                     <td>
                                         ₹ {{ isset($detail->discount) ? $detail->discount : 0.00 }}
@@ -107,7 +107,7 @@
 
                                 <dt class="col-5"><strong>Total</strong></dt>
                                 <dd class="col-6 title-color">
-                                    <strong>₹1,000.00</strong>
+                                    <strong>₹ {{ $order->order_amount - $order->disount_amount }}</strong>
                                 </dd>
                             </dl>
 
@@ -172,7 +172,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).on('change', '.order-status', function () {
-           
+
             let orderId = $(this).data('id');
             let newStatus = $(this).val();
             $.ajax({
@@ -214,5 +214,5 @@
             });
         });
     </script>
-    
+
 @endsection
