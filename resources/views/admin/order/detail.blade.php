@@ -27,20 +27,15 @@
                         <div class="text-sm-right flex-grow-1">
                             <div class="d-flex flex-column gap-2 mt-3">
                                 <div class="order-status d-flex justify-content-sm-end gap-10 text-capitalize">
-                                    <span class="title-color">Status: </span>
+                                    <span class="title-color">Order Status: </span>
                                     @if ($order->order_status == 'confirmed')
-                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Confirmed</span>
+                                        <span class="badge bg-primary"><i class="bi bi-check-circle me-1"></i> Confirmed</span>
+                                    @elseif ($order->order_status == 'pending')
+                                    <span class="badge bg-warning"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
+                                    @elseif ($order->order_status == 'canceled')
+                                    <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Canceled</span>
                                     @else
-                                        <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
-                                    @endif
-                                </div>
-
-                                <div class="payment-status d-flex justify-content-sm-end gap-10">
-                                    <span class="title-color">Payment Status:</span>
-                                    @if ($order->order_status == 'paid')
-                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Paid</span>
-                                    @else
-                                        <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Unpaid</span>
+                                        <span class="badge bg-success"><i class="bi bi-exclamation-octagon me-1"></i> Delivered</span>
                                     @endif
                                 </div>
                             </div>
@@ -66,24 +61,25 @@
                                     <td>1</td>
                                     <td>
                                         <img class="avatar avatar-60 rounded img-fit"
-                                        src="#"
+                                        src="{{ asset('storage/'.$detail->product->thumbnail_image) }}"
                                         alt="Image Description">
                                     </td>
                                     <td>
                                         <div class="media align-items-center gap-10">
 
                                             <div>
-                                                <h6 class="title-color">FireBees Modern Wooden</h6>
-                                                <div><strong>Qty :</strong> 1 </div>
+                                                <h6 class="title-color">{{ $detail->product->name }}</h6>
+                                                <div><strong>Qty :</strong> {{ $detail->quantity }} </div>
                                             </div>
                                         </div>
 
                                     </td>
+                                    
+                                    <td>₹ {{ $detail->product->final_amount }}</td>
                                     <td>
-                                        ₹1,640.00
+                                        ₹ {{ isset($detail->discount) ? $detail->discount : 0.00 }}
                                     </td>
-                                    <td>₹1,099.00</td>
-                                    <td>₹901.00</td>
+                                    <td>₹ {{ $detail->price }}</td>
                                 </tr>
                                 @empty
                                 <tr>
@@ -101,12 +97,12 @@
                             <dl class="row gy-1 text-sm-right">
                                 <dt class="col-5">Item price</dt>
                                 <dd class="col-6 title-color">
-                                    <strong>₹1,640.00</strong>
+                                    <strong>₹ {{ $order->order_amount }}</strong>
                                 </dd>
                                 <dt class="col-5 text-capitalize">Item discount</dt>
                                 <dd class="col-6 title-color">
                                     -
-                                    <strong>₹1,099.00</strong>
+                                    <strong>₹{{ isset($order->disount_amount) ? $order->disount_amount : 0.0 }}</strong>
                                 </dd>
 
                                 <dt class="col-5"><strong>Total</strong></dt>
@@ -130,12 +126,11 @@
                     </div>
                     <div class="">
                         <label class="font-weight-bold title-color fz-14">Change order status</label>
-                        <select name="order_status" id="order_status" class="status form-control" data-id="100001">
-
-                            <option value="pending"> Pending</option>
-                            <option value="confirmed" selected=""> Confirmed</option>
-                            <option value="delivered">Delivered </option>
-                            <option value="canceled">Canceled </option>
+                        <select name="order_status" id="order_status" class="form-control order-status" data-id="{{ $order->id }}">
+                            <option value="pending" {{ $order->order_status == 'pending' ? 'selected' : '' }} > Pending</option>
+                            <option value="confirmed" {{ $order->order_status == 'confirmed' ? 'selected' : '' }}> Confirmed</option>
+                            <option value="canceled" {{ $order->order_status == 'canceled' ? 'selected' : '' }}>Canceled </option>
+                            <option value="delivered" {{ $order->order_status == 'delivered' ? 'selected' : '' }}>Delivered </option>
                         </select>
                     </div>
                     <div class="d-flex justify-content-between align-items-center gap-10 form-control h-auto flex-wrap">
@@ -143,8 +138,11 @@
                             Payment status
                         </span>
                         <div class="d-flex justify-content-end min-w-100 align-items-center gap-2">
+                            @if ($order->order_status == 'paid')
                             <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Paid</span>
+                            @else
                             <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Unpaid</span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -170,4 +168,51 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).on('change', '.order-status', function () {
+           
+            let orderId = $(this).data('id');
+            let newStatus = $(this).val();
+            $.ajax({
+                url: "{{ url('admin/updateorder-status') }}/" + orderId, // Append the order ID
+                method: 'POST',
+                data: {
+                    status: newStatus, // Pass the new status
+                    _token: "{{ csrf_token() }}" // CSRF token for POST request
+                },
+                success: function (response) {
+                    if(response.status == 1)
+                    {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                          })
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                          })
+                    }
+
+                    location.reload();
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: response.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                      });
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    </script>
+    
 @endsection
