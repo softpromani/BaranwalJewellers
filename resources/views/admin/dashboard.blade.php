@@ -94,19 +94,30 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Customer</th>
-                      <th scope="col">Product</th>
-                      <th scope="col">Price</th>
+                      <th scope="col">Phone</th>
                       <th scope="col">Status</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @forelse ($orders as $order)
+                        <tr>
+                            <th scope="row"><a href="{{ route('admin.orderDetail', $order->id) }}">#{{ $order->order_id }}</a></th>
+                            <td>{{ $order->user->name ?? '' }}</td>
+                            <td>{{ $order->user->phone ?? '' }}</td>
+                            <td>
+                                @if ($order->order_status == 'pending')
+                                <span class="badge bg-warning">Pending</span>
+                                @elseif($order->order_status == 'confirmed')
+                                <span class="badge bg-success">Confirmed</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
                     <tr>
-                      <th scope="row"><a href="#">#2457</a></th>
-                      <td>Brandon Jacob</td>
-                      <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                      <td>$64</td>
-                      <td><span class="badge bg-success">Confirmed</span></td>
+                        <td colspan="5" class="text-center">No data found!</td>
                     </tr>
+                    @endforelse
+
                   </tbody>
                 </table>
 
@@ -132,11 +143,18 @@
                 </tr>
               </thead>
               <tbody>
+                @forelse ($cartUsers as $cart)
+                    <tr>
+                        <td>{{ $cart->user->name }} <br/><span class="badge bg-primary">+91 {{ $cart->user->phone ?? 'N/A' }}</span></td>
+                        <td><a href="#" class="text-primary">{{ $cart->product->name }}</a></td>
+                        <td>₹ {{ $cart->product->final_amount ?? '' }}</td>
+                    </tr>
+                @empty
                 <tr>
-                  <td>Brandon Jacob <br/><span class="badge bg-primary">+91 123456778</span></td>
-                  <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                  <td>$64</td>
+                    <td colspan="3" class="text-center">No data found!</td>
                 </tr>
+                @endforelse
+
               </tbody>
             </table>
 

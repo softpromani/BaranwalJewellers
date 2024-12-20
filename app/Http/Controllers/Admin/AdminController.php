@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,9 @@ class AdminController extends Controller
 {
     function dashboard()
     {
-        return view('admin.dashboard');
+        $cartUsers = User::has('carts')->with('carts')->latest()->take(5);
+        $orders = Order::with('order_details')->latest()->take(5);
+        return view('admin.dashboard', compact('cartUsers', 'orders'));
     }
 
     function customerList(Request $request)
