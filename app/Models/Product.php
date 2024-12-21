@@ -73,8 +73,8 @@ class Product extends Model
             'price' => $this->weight .'gms / '.$price,
             'packing_charge' => $packing_charge,
             'hallmarking_charge' => $hallmarking_charge,
-            'making_charge' => $this->making_charge .' / '. $making_charge,
-            'tax' => $this->tax .' / '.$tax_charge,
+            'making_charge' => $this->making_charge .'% / '. $making_charge,
+            'tax' => $this->tax .'% / '.$tax_charge,
             'final_amount' => round($final_amount, 2),
         ];
     }
