@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $guarded = [];
-    protected $appends = ['thumbnail_image_url', 'final_amount'];
+    protected $appends = ['thumbnail_image_url', 'final_amount', 'price_breakdown'];
 
     public function scopeActive($query)
     {
