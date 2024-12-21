@@ -322,7 +322,7 @@ class APIController extends Controller
     {
         $data = [
 
-        ]
+        ];
     }
 
 }
