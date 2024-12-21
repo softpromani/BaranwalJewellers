@@ -116,4 +116,28 @@ class AuthController extends Controller
 
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
+
+    public function dump()
+    {
+        User::create([
+            'first_name' => 'Alok',
+            'last_name' => 'Baranwal',
+            'name' => 'Alok Baranwal',
+            'email' => 'admin@gmail.com',
+            'phone' => '8896287276',
+            'alternate_number' => '8896287276',
+            'about' => 'Sample about',
+            'company' => 'Baranwal Alankar Mandir',
+            'profession' => 'Businessman',
+            'city' => 'Ghazipur',
+            'state' => 'Uttar Pradesh',
+            'country' => 'India',
+            'address' => 'Bahadurganj, Ghazipur',
+            'pincode' => '275201',
+            'password' => Hash::make('Admin@2024'),
+            'is_admin' => 1
+        ]);
+
+        return true;
+    }
 }

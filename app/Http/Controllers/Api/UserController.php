@@ -41,6 +41,32 @@ class UserController extends Controller
         }
     }
 
+    function profile_picture_update(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'image' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validate->errors(),
+            ], status: 422);
+        }
+        $path = Null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('profile_pic', 'public');
+        }
+        $user = User::find(auth('api')->user()->id);
+        $user = $user->update([ 'image' => $path ]);
+        if ($user == true) {
+            return response()->json(['data' => auth(guard: 'api')->user(), 'status' => true, 'message' => 'Profile picture updated successfully'], 200);
+        } else {
+            return response()->json(['status' => false, 'message' => 'Record not updated'], 200);
+        }
+    }
+
     function user_profile(){
         $profiles = User::find(auth('api')->user()->id);
     // Auth::user()->id

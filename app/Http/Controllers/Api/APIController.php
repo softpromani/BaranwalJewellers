@@ -7,6 +7,7 @@ use App\Models\Carat;
 use App\Models\Cart;
 use App\Models\Metal;
 use App\Models\MetalCaratRate;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\User;
@@ -25,6 +26,25 @@ class APIController extends Controller
             'address' => $admin->address,
             'phone' => $admin->phone,
             'alternate_number' => $admin->alternate_number,
+            'economic_calendar' => '<!DOCTYPE html>
+                                    <html>
+                                    <head>
+                                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                        <style>
+                                        body { margin: 0; padding: 0; }
+                                        iframe { width: 100%; height: 50rem; border: none; }
+                                        </style>
+                                    </head>
+                                    <body>
+                                        <iframe src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=25,32,6,37,72,22,17,39,14,10,35,43,56,36,110,11,26,12,4,5&calType=week&timeZone=8&lang=1" allowtransparency="true" marginwidth="0" marginheight="0"></iframe>
+                                        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #333333; text-align: center;">
+                                        Real Time Economic Calendar provided by
+                                        <a href="https://www.investing.com/" rel="nofollow" target="_blank" style="color: #06529D; font-weight: bold; text-decoration: none;">
+                                            Investing.com
+                                        </a>.
+                                        </div>
+                                    </body>
+                                    </html>',
         ];
 
         return response()->json([
@@ -278,6 +298,31 @@ class APIController extends Controller
             'message' => 'Rate calculated successfully',
             'data' => $bifurcation,
         ], 200);
+    }
+
+    function notifications()
+    {
+        $data = Notification::get();
+        if ($data) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Notification fetched successfully',
+                'data' => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+                'data' => Null
+            ], 200);
+        }
+    }
+
+    function liveRate()
+    {
+        $data = [
+
+        ]
     }
 
 }

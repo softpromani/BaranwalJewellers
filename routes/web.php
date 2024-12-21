@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login'])->name('home');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
-Route::post('/change-password', [AuthController::class, 'changePassword'])->name('admin.change_password');
+
+Route::get('/dump', [AuthController::class, 'dump'])->name('dump');
 
 
 Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth' ], function(){
@@ -33,16 +34,15 @@ Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middle
     Route::get('order-detail/{id}', [OrderController::class, 'orderDetail'])->name('orderDetail');
     Route::post('updateorder-status/{id}', [OrderController::class, 'updateOrderStatus'])->name('update_OrderStatus');
 
-
     Route::get('customer-list', [AdminController::class, 'customerList'])->name('customerList');
 
     //User profiles
     Route::get('user-profile', [UserController::class, 'userProfile'])->name('userProfile');
     Route::post('profile-update', [AuthController::class, 'profile_update'])->name('profile-update');
+    Route::post('/change-password', [AuthController::class, 'changePassword'])->name('change_password');
 
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
     Route::resource('notification', NotificationController::class);
-
 
 });

@@ -22,6 +22,7 @@ class AdminController extends Controller
         if($request->name){
             $query->where('name', 'like', '%'.$request->name.'%');
         }
+
         if($request->phone){
             $query->where('phone', $request->phone);
         }

@@ -34,12 +34,18 @@ Route::get('carat/list', [APIController::class, 'caratList']);
 //Calculate Gold Rate
 Route::post('calculate-rate', [APIController::class, 'calculateGoldRate']);
 
+//Live Rate
+Route::get('live-rate', [APIController::class, 'liveRate']);
+
 Route::middleware(['auth:api'])->group(function () {
     // User Profile
     Route::get('user-profile', [UserController::class, 'user_profile']);
 
     //profileUpdate
     Route::post('/profile-update', [UserController::class, 'profile_update']);
+
+    //profile picture update
+    Route::post('/profile-picture-update', [UserController::class, 'profile_picture_update']);
 
     //user-cart
     Route::post('/user-cart', [APIController::class, 'userCart']);
@@ -55,5 +61,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     //get-order
     Route::get('/get-order', [APIController::class, 'get_order']);
+
+    //get-order
+    Route::get('/notifications', [APIController::class, 'notifications']);
 
 });

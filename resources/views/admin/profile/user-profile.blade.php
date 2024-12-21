@@ -193,7 +193,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="Image" class="col-md-4 col-lg-3 col-form-label">Logo</label>
+                                        <label for="Image" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="image" type="file" class="form-control" id="Image">
                                         </div>
