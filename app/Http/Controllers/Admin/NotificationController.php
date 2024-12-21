@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class NotificationController extends Controller
 {
@@ -15,7 +17,6 @@ class NotificationController extends Controller
     {
         $notifications = Notification::all();
         return view('admin.notification', compact('notifications'));
-
     }
 
     /**
@@ -31,23 +32,54 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'nullable|image',
+        ]);
 
        if ($request->hasFile('image')) {
-       $file = $request->file('image');
-       $path = $file->store('notifications', 'public');
+            $file = $request->file('image');
+            $path = $file->store('notifications', 'public');
        }
 
         $data = [
-
-        'title' => $request->title,
-        'description' => $request->description,
-        'image' => $path ?? null
-
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' => $path ?? Null
         ];
 
-     Notification::create($data);
-     return redirect()->route('admin.notification.index');
+        Notification::create($data);
 
+        // Prepare Firebase notification payload
+        $fcmToken = User::active()->pluck('fcm_token'); // Replace with the recipient's FCM token
+        $serverKey = 'YOUR_SERVER_KEY_HERE'; // Replace with your Firebase server key
+
+        $firebaseData = [
+            'message' => [
+                'token' => $fcmToken,
+                'notification' => [
+                    'title' => $request->title,
+                    'body' => $request->description,
+                ],
+                'data' => [
+                    'image' => $path ?? null,
+                ],
+            ],
+        ];
+
+        // Send notification to Firebase
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $serverKey,
+            'Content-Type' => 'application/json',
+        ])->post('https://fcm.googleapis.com/v1/projects/YOUR_PROJECT_ID/messages:send', $firebaseData);
+
+        if ($response->failed()) {
+            return redirect()->route('admin.notification.index')
+                ->with('error', 'Notification created but failed to send push notification.');
+        }
+
+        return redirect()->route('admin.notification.index');
     }
 
     /**
