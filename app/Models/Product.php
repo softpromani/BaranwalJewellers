@@ -69,7 +69,7 @@ class Product extends Model
         // Final amount calculation
         $final_amount = $price + $packing_charge + $hallmarking_charge + $making_charge + $tax_charge;
 
-        $data = [
+        return $data = [
             'price' => $this->weight .'gms / '.$price,
             'packing_charge' => $packing_charge,
             'hallmarking_charge' => $hallmarking_charge,
