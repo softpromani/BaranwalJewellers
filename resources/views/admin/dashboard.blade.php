@@ -102,7 +102,7 @@
                     @forelse ($orders as $order)
                         <tr>
                             <th scope="row"><a href="{{ route('admin.orderDetail', $order->id) }}">#{{ $order->order_id }}</a></th>
-                            <td>{{ $order->user->name ?? '' }}</td>
+                            <td>{{ isset($order->user->name) && $order->user->name != Null ? $order->user->name : 'BAM User' }}</td>
                             <td>{{ $order->user->phone ?? '' }}</td>
                             <td>
                                 @if ($order->order_status == 'pending')
@@ -143,11 +143,11 @@
                 </tr>
               </thead>
               <tbody>
-                @forelse ($cartUsers as $cart)
+                @forelse ($carts as $cart)
                     <tr>
-                        <td>{{ $cart->user->name }} <br/><span class="badge bg-primary">+91 {{ $cart->user->phone ?? 'N/A' }}</span></td>
-                        <td><a href="#" class="text-primary">{{ $cart->product->name }}</a></td>
-                        <td>₹ {{ $cart->product->final_amount ?? '' }}</td>
+                        <td>{{ isset($cart->user->name) && $cart->user->name != Null ? $cart->user->name : 'BAM User' }} <br/><span class="badge bg-primary">+91 {{ $cart->user->phone ?? 'N/A' }}</span></td>
+                        <td><a href="#" class="text-primary">{{ $cart->product->name ?? 'N/A' }}</a></td>
+                        <td>₹ {{ $cart->product->final_amount ?? 0.00 }}</td>
                     </tr>
                 @empty
                 <tr>

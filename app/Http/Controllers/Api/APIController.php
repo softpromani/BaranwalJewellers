@@ -95,7 +95,7 @@ class APIController extends Controller
 
         if ($existProduct) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Product already added!',
                 'data' => Null
             ], 200);
