@@ -55,7 +55,7 @@
                     @forelse ($users as $user)
                         <tr>
                             <th scope="row">{{ $loop->index+1 }}</th>
-                            <td>{{ isset($user->name) && $user->name != Null ?? 'BAM User' }}</td>
+                            <td>{{ isset($user->name) && $user->name != Null ? $user->name : 'BAM User' }}</td>
                             <td>+91 {{ $user->phone }}</td>
                             <td>{{ $user->address ?? 'N/A' }}</td>
                             <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d M,Y') }}</td>
