@@ -59,8 +59,7 @@
 
         </tbody>
       </table>
-
+      {{ $orders->links('pagination::bootstrap-4') }}
     </div>
-    {{ $orders->links('pagination::bootstrap-4') }}
   </div>
 @endsection
