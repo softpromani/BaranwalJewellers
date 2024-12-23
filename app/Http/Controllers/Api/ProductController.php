@@ -19,7 +19,14 @@ class ProductController extends Controller
 
     function productSearch(Request $request)
     {
-        $products = Product::active()->where('name', 'like', '%'.$request->name.'%')->get();
+        $products = Product::active()
+            ->where('name', 'like', '%' . $request->name . '%')
+            ->orWhere('description', 'like', '%' . $request->name . '%')
+            ->get()
+            ->map(function ($product) {
+                $product->description = strip_tags($product->description); // Strip HTML tags
+                return $product;
+            });
 
         return response()->json([
             'success' => true,
