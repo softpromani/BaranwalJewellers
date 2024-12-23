@@ -322,8 +322,62 @@ class APIController extends Controller
     function liveRate()
     {
         $data = [
-
+            'gold' => [
+                'low' => '2600.00',
+                'high' => '2650.00',
+                'current' => '2627.40',
+            ],
+            'silver' => [
+                'low' => '28.50',
+                'high' => '30.00',
+                'current' => '29.71',
+            ],
+            'inr' => [
+                'low' => '84.50',
+                'high' => '85.50',
+                'current' => '85.073',
+            ],
+            'silver_jewellery' => [
+                'low' => '88000',
+                'high' => '90000',
+                'current' => '89000',
+            ],
+            'gold_jewellery_99' => [
+                'low' => '88000',
+                'high' => '90000',
+                'current' => '89000',
+            ],
+            'gold_jewellery_24k_999_rtgs_bank' => [
+                'low' => '88000',
+                'high' => '90000',
+                'current' => '89000',
+            ],
+            'gold_jewellery_22k_916' => [
+                'low' => '88000',
+                'high' => '90000',
+                'current' => '89000',
+            ],
+            'gold_jewellery_18k_750' => [
+                'low' => '88000',
+                'high' => '90000',
+                'current' => '89000',
+            ],
+            'gold_costing' => [
+                'low' => '88000',
+                'high' => '90000',
+                'current' => '89000',
+            ],
+            'silver_costing' => [
+                'low' => '88000',
+                'high' => '90000',
+                'current' => '89000',
+            ],
         ];
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ], 200);
     }
 
 }
