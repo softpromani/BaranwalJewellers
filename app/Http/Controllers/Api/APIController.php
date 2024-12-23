@@ -184,8 +184,9 @@ class APIController extends Controller
 
     public function removeFromCart($id)
     {
-        $removecart = Cart::find($id)->delete();
+        $removecart = Cart::find($id);
         if ($removecart) {
+            Cart::find($id)->delete();
             return response()->json([
                 'success' => true,
                 'message' => 'Product remove from cart successfully',
@@ -194,7 +195,7 @@ class APIController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Something went wrong!',
+                'message' => 'Cart not found!',
                 'data' => Null
             ], 200);
         }
