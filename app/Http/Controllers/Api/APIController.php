@@ -321,56 +321,52 @@ class APIController extends Controller
 
     function liveRate()
     {
+
         $data = [
             'gold' => [
-                'low' => '2600.00',
-                'high' => '2650.00',
-                'current' => '2627.40',
+                'low' => getLiveRate('mcx_gold_rate'),
+                'high' => getLiveRate('mcx_gold_rate'),
+                'current' => getLiveRate('mcx_gold_rate'),
             ],
             'silver' => [
-                'low' => '28.50',
-                'high' => '30.00',
-                'current' => '29.71',
-            ],
-            'inr' => [
-                'low' => '84.50',
-                'high' => '85.50',
-                'current' => '85.073',
+                'low' => getLiveRate('mcx_silver_rate'),
+                'high' => getLiveRate('mcx_silver_rate'),
+                'current' => getLiveRate('mcx_silver_rate'),
             ],
             'silver_jewellery' => [
-                'low' => '88000',
-                'high' => '90000',
-                'current' => '89000',
+                'low' => getLiveRate('silver_jewellery'),
+                'high' => getLiveRate('silver_jewellery'),
+                'current' => getLiveRate('silver_jewellery'),
             ],
             'gold_jewellery_99' => [
-                'low' => '88000',
-                'high' => '90000',
-                'current' => '89000',
+                'low' => getLiveRate('gold_jewellery_99'),
+                'high' => getLiveRate('gold_jewellery_99'),
+                'current' => getLiveRate('gold_jewellery_99'),
             ],
             'gold_jewellery_24k_999_rtgs_bank' => [
-                'low' => '88000',
-                'high' => '90000',
-                'current' => '89000',
+                'low' => getLiveRate('gold_jewellery_24k'),
+                'high' => getLiveRate('gold_jewellery_24k'),
+                'current' => getLiveRate('gold_jewellery_24k'),
             ],
             'gold_jewellery_22k_916' => [
-                'low' => '88000',
-                'high' => '90000',
-                'current' => '89000',
+                'low' => getLiveRate('gold_jewellery_22k'),
+                'high' => getLiveRate('gold_jewellery_22k'),
+                'current' => getLiveRate('gold_jewellery_22k'),
             ],
             'gold_jewellery_18k_750' => [
-                'low' => '88000',
-                'high' => '90000',
-                'current' => '89000',
+                'low' => getLiveRate('gold_jewellery_18k'),
+                'high' => getLiveRate('gold_jewellery_18k'),
+                'current' => getLiveRate('gold_jewellery_18k'),
             ],
             'gold_costing' => [
-                'low' => '88000',
-                'high' => '90000',
-                'current' => '89000',
+                'low' => getLiveRate('gold_costing'),
+                'high' => getLiveRate('gold_costing'),
+                'current' => getLiveRate('gold_costing'),
             ],
             'silver_costing' => [
-                'low' => '88000',
-                'high' => '90000',
-                'current' => '89000',
+                'low' => getLiveRate('silver_costing'),
+                'high' => getLiveRate('silver_costing'),
+                'current' => getLiveRate('silver_costing'),
             ],
         ];
 
