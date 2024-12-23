@@ -34,9 +34,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $currentPage = $products->currentPage();
+                    $perPage = $products->perPage();
+                    $start = ($currentPage - 1) * $perPage + 1;
+                    @endphp
                     @forelse ($products as $product)
                         <tr>
-                            <th scope="row">{{ $loop->index + 1 }}</th>
+                            <th scope="row">{{ $start + $index }}</th>
                             <td>{{ $product->name ?? 'N/A' }}</td>
                             <td>{!! substr($product->description ?? 'N/A', 0, 20) !!}</td>
                             <td><img src="{{ asset('storage/' . $product->thumbnail_image) }}" alt=""
