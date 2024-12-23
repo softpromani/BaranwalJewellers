@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     function orderList()
     {
-        $orders = Order::get();
+        $orders = Order::paginate(10);
         return view('admin.order.list', compact('orders'));
     }
 
@@ -28,7 +28,7 @@ class OrderController extends Controller
             return response()->json(['status'=>0, 'message' => 'Order not found!'], 404);
         }
 
-        $order->order_status = $request->status; 
+        $order->order_status = $request->status;
         $order->save();
 
         return response()->json(['status' => 1,'message' => 'Order status updated!', 'order' => $order], 200);
