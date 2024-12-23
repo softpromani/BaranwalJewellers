@@ -93,9 +93,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $start = ($categories->currentPage() - 1) * $categories->perPage() + 1;
+                    @endphp
                     @forelse ($categories as $category)
                         <tr>
-                            <th scope="row">{{ $loop->index + 1 }}</th>
+                            <th scope="row">{{ $start + $index }}</th>
                             <td>
                                 <img src="{{ asset('storage/' . $category->image) }}" width="80" />
                             </td>
@@ -120,6 +123,7 @@
 
                 </tbody>
             </table>
+            {{ $categories->links('pagination::bootstrap-4') }}
 
         </div>
     </div>

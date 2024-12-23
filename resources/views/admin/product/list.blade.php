@@ -35,7 +35,6 @@
                 </thead>
                 <tbody>
                     @php
-                        // Calculate the starting serial number for the current page
                         $start = ($products->currentPage() - 1) * $products->perPage() + 1;
                     @endphp
                     @forelse ($products as $product)
@@ -74,7 +73,7 @@
                     @endforelse
                 </tbody>
             </table>
-
+            {{ $products->links('pagination::bootstrap-4') }}
         </div>
     </div>
 @endsection

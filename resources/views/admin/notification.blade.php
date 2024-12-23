@@ -68,9 +68,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $start = ($notifications->currentPage() - 1) * $notifications->perPage() + 1;
+                    @endphp
                     @forelse ($notifications as $notification)
                         <tr>
-                            <th scope="row">{{ $loop->index + 1 }}</th>
+                            <th scope="row">{{ $start + $index }}</th>
                             <td><img src="{{ asset('storage/' . $notification->image) }}" alt="" width="100">
                             </td>
                             <td>{{ $notification->title ?? 'N/A' }}</td>
@@ -100,6 +103,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $notifications->links('pagination::bootstrap-4') }}
 
         </div>
     </div>

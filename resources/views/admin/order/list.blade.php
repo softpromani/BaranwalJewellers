@@ -32,9 +32,12 @@
           </tr>
         </thead>
         <tbody>
+            @php
+                $start = ($orders->currentPage() - 1) * $orders->perPage() + 1;
+            @endphp
             @forelse ($orders as $order)
             <tr>
-                <th scope="row">{{ $loop->index+1 }}</th>
+                <th scope="row">{{ $start + $index }}</th>
                 <td>{{ $order->order_id }}</td>
                 <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d M,Y') }}</td>
                 <td>{{ $order->user->name }}<br/><span class="badge bg-info">{{ $order->user->phone }}</span></td>

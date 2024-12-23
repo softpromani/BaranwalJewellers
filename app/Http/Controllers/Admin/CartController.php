@@ -11,7 +11,7 @@ class CartController extends Controller
 {
     function abandonedCart()
     {
-        $users = User::has('carts')->with('carts')->get();
+        $users = User::has('carts')->with('carts')->paginate(10);
         return view('admin.abandoned-cart', compact('users'));
     }
 
