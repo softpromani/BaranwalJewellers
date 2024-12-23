@@ -35,9 +35,8 @@
                 </thead>
                 <tbody>
                     @php
-                    $currentPage = $products->currentPage();
-                    $perPage = $products->perPage();
-                    $start = ($currentPage - 1) * $perPage + 1;
+                        // Calculate the starting serial number for the current page
+                        $start = ($products->currentPage() - 1) * $products->perPage() + 1;
                     @endphp
                     @forelse ($products as $product)
                         <tr>
