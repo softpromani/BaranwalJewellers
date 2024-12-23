@@ -71,7 +71,7 @@
                     @php
                     $start = ($notifications->currentPage() - 1) * $notifications->perPage() + 1;
                     @endphp
-                    @forelse ($notifications as $notification)
+                    @forelse ($notifications as $index => $notification)
                         <tr>
                             <th scope="row">{{ $start + $index }}</th>
                             <td><img src="{{ asset('storage/' . $notification->image) }}" alt="" width="100">

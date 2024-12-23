@@ -96,7 +96,7 @@
                     @php
                     $start = ($categories->currentPage() - 1) * $categories->perPage() + 1;
                     @endphp
-                    @forelse ($categories as $category)
+                    @forelse ($categories as $index => $category)
                         <tr>
                             <th scope="row">{{ $start + $index }}</th>
                             <td>

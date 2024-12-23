@@ -33,7 +33,7 @@
             @php
             $start = ($users->currentPage() - 1) * $users->perPage() + 1;
             @endphp
-          @forelse ($users as $user)
+          @forelse ($users as $index => $user)
             <tr>
                 <th scope="row">{{ $start + $index }}</th>
                 <td>{{ $user->name }}</td>

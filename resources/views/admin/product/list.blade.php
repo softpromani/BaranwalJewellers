@@ -37,7 +37,7 @@
                     @php
                         $start = ($products->currentPage() - 1) * $products->perPage() + 1;
                     @endphp
-                    @forelse ($products as $product)
+                    @forelse ($products as $index => $product)
                         <tr>
                             <th scope="row">{{ $start + $index }}</th>
                             <td>{{ $product->name ?? 'N/A' }}</td>

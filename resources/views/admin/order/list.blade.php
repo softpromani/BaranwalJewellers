@@ -35,7 +35,7 @@
             @php
                 $start = ($orders->currentPage() - 1) * $orders->perPage() + 1;
             @endphp
-            @forelse ($orders as $order)
+            @forelse ($orders as $index => $order)
             <tr>
                 <th scope="row">{{ $start + $index }}</th>
                 <td>{{ $order->order_id }}</td>

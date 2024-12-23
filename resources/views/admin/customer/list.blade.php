@@ -52,9 +52,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($users as $user)
+                    @php
+                    $start = ($users->currentPage() - 1) * $users->perPage() + 1;
+                    @endphp
+                    @forelse ($users as $index => $user)
                         <tr>
-                            <th scope="row">{{ $loop->index+1 }}</th>
+                            <th scope="row">{{ $start + $index }}</th>
                             <td>{{ isset($user->name) && $user->name != Null ? $user->name : 'BAM User' }}</td>
                             <td>+91 {{ $user->phone }}</td>
                             <td>{{ $user->address ?? 'N/A' }}</td>
@@ -71,6 +74,7 @@
 
                 </tbody>
             </table>
+            {{ $users->links('pagination::bootstrap-4') }}
 
         </div>
     </div>
