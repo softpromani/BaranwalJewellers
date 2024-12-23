@@ -45,4 +45,7 @@ Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middle
 
     Route::resource('notification', NotificationController::class);
 
+    Route::get('live-rate-setup', [MetalrateController::class, 'liveRateSetup'])->name('liveRateSetup');
+    Route::post('live-rate', [MetalrateController::class, 'updateLiveRate'])->name('liveRate');
+
 });

@@ -86,15 +86,15 @@
                     <a href="tables-general.html">
                         <i class="bi bi-circle"></i><span>Company Setup</span>
                     </a>
-                </li>
-                <li>
-                    <a href="tables-data.html">
-                        <i class="bi bi-circle"></i><span>Live Rate</span>
-                    </a>
                 </li> --}}
                 <li>
                     <a href="{{ route('admin.metal-rate') }}">
                         <i class="bi bi-circle"></i><span>Metal Rate Setup</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.liveRateSetup') }}">
+                        <i class="bi bi-circle"></i><span>Live Rate</span>
                     </a>
                 </li>
             </ul>

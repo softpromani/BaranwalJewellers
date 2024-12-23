@@ -32,6 +32,18 @@ if (!function_exists('getBusinessSetting')) {
     }
 }
 
+if (!function_exists('getLiveRate')) {
+    function getLiveRate($key)
+    {
+        $setting = BusinessSetting::where('key', $key)->first();
+        if($setting){
+            return $setting->value;
+        } else {
+            return 0.0;
+        }
+    }
+}
+
 if (!function_exists('fetchSpotRate')) {
     function fetchAuthorityRates()
     {

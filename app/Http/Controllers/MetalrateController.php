@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusinessSetting;
 use App\Models\Carat;
 use App\Models\Metal;
 use App\Models\MetalCaratRate;
@@ -49,9 +50,40 @@ class MetalrateController extends Controller
                 ]
             );
         }
-
-
         return redirect()->back()->with('success', 'Metal Rate Updated Successfully.');
+
+    }
+
+    public function liveRateSetup()
+    {
+        return view('admin.business-setting.live-rate-setup');
+    }
+
+    public function updateLiveRate(Request $request)
+    {
+        if($request->silver_jewellery){
+            BusinessSetting::updateOrCreate(['key'=>'silver_jewellery'],['value'=>$request->silver_jewellery]);
+        }
+        if($request->gold_jewellery_99){
+            BusinessSetting::updateOrCreate(['key'=>'gold_jewellery_99'],['value'=>$request->gold_jewellery_99]);
+        }
+        if($request->gold_jewellery_24k){
+            BusinessSetting::updateOrCreate(['key'=>'gold_jewellery_24k'],['value'=>$request->gold_jewellery_24k]);
+        }
+        if($request->gold_jewellery_22k){
+            BusinessSetting::updateOrCreate(['key'=>'gold_jewellery_22k'],['value'=>$request->gold_jewellery_22k]);
+        }
+        if($request->gold_jewellery_18k){
+            BusinessSetting::updateOrCreate(['key'=>'gold_jewellery_18k'],['value'=>$request->gold_jewellery_18k]);
+        }
+        if($request->gold_costing){
+            BusinessSetting::updateOrCreate(['key'=>'gold_costing'],['value'=>$request->gold_costing]);
+        }
+        if($request->silver_costing){
+            BusinessSetting::updateOrCreate(['key'=>'silver_costing'],['value'=>$request->silver_costing]);
+        }
+
+        return redirect()->back()->with('success', 'Live Rate Updated Successfully.');
 
     }
 }
