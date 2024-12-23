@@ -17,6 +17,16 @@ class ProductController extends Controller
         ], 200);
     }
 
+    function productSearch(Request $request)
+    {
+        $products = Product::active()->where('name', 'like', '%'.$request->name.'%')->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $products
+        ], 200);
+    }
+
     function listProductViaCategory($category_id)
     {
         $products = Product::where('category_id', $category_id)->active()->paginate(10);

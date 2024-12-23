@@ -13,29 +13,8 @@ use Illuminate\Support\Facades\Route;
 //LoginOrRegister
 Route::post('/login', [LoginController::class, 'loginOrRegister']);
 
-//Category
-Route::get('category/list', [CategoryController::class, 'list']);
-
-//Banner
-Route::get('banner/list', [BannerController::class, 'list']);
-
-//Product
-Route::get('product/list', [ProductController::class, 'list']);
-
-//Product via category
-Route::get('product/category/{id}', [ProductController::class, 'listProductViaCategory']);
-
 //Business Setting
 Route::get('business-setting', [APIController::class, 'businessSetting']);
-
-//Carat List
-Route::get('carat/list', [APIController::class, 'caratList']);
-
-//Calculate Gold Rate
-Route::post('calculate-rate', [APIController::class, 'calculateGoldRate']);
-
-//Live Rate
-Route::get('live-rate', [APIController::class, 'liveRate']);
 
 Route::middleware(['auth:api'])->group(function () {
     // User Profile
@@ -46,6 +25,30 @@ Route::middleware(['auth:api'])->group(function () {
 
     //profile picture update
     Route::post('/profile-picture-update', [UserController::class, 'profile_picture_update']);
+
+    //Category
+    Route::get('category/list', [CategoryController::class, 'list']);
+
+    //Product
+    Route::get('product/list', [ProductController::class, 'list']);
+
+    //Product
+    Route::get('product/search', [ProductController::class, 'productSearch']);
+
+    //Product via category
+    Route::get('product/category/{id}', [ProductController::class, 'listProductViaCategory']);
+
+    //Carat List
+    Route::get('carat/list', [APIController::class, 'caratList']);
+
+    //Calculate Gold Rate
+    Route::post('calculate-rate', [APIController::class, 'calculateGoldRate']);
+
+    //Live Rate
+    Route::get('live-rate', [APIController::class, 'liveRate']);
+
+    //Banner
+    Route::get('banner/list', [BannerController::class, 'list']);
 
     //user-cart
     Route::post('/user-cart', [APIController::class, 'userCart']);

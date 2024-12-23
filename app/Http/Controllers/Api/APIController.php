@@ -60,7 +60,7 @@ class APIController extends Controller
         if ($cart) {
             return response()->json([
                 'success' => true,
-                'message' => 'Product fetched successfully',
+                'message' => 'Cart fetched successfully',
                 'data' => $cart
             ], 200);
         } else {
