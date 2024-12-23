@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('business_settings', function (Blueprint $table) {
             $table->id();
-            $table->text('key');
-            $table->longText('value');
+            $table->text('key')->nullable();
+            $table->longText('value')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
