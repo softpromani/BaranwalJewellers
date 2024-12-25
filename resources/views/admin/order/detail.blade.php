@@ -58,7 +58,7 @@
                             <tbody>
                                 @forelse ($order->order_details as $detail)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $loop->index+1 }}</td>
                                     <td>
                                         <img class="avatar avatar-60 rounded img-fit"
                                         src="{{ asset('storage/'.$detail->product->thumbnail_image) }}"
@@ -160,8 +160,8 @@
                         <div class="media-body d-flex flex-column gap-1">
                             <span class="title-color"><strong>{{ $order->user->name ?? '' }} </strong></span>
                             <span class="title-color break-all"><strong>+91 {{ $order->user->phone ?? '' }}</strong></span>
-                            <span class="title-color break-all">{{ $order->email ?? 'N/A' }}</span>
-                            <span class="title-color break-all">{{ $order->address ?? 'N/A' }}</span>
+                            <span class="title-color break-all">{{ $order->user->email ?? 'N/A' }}</span>
+                            <span class="title-color break-all">{{ $order->user->address ?? 'N/A' }}</span>
                         </div>
                     </div>
                 </div>
