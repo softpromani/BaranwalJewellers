@@ -26,6 +26,9 @@ class APIController extends Controller
             'address' => $admin->address,
             'phone' => $admin->phone,
             'alternate_number' => $admin->alternate_number,
+            'gold_24k' => getCaratPrice(1,1),
+            'gold_22k' => getCaratPrice(1,2),
+            'gold_18k' => getCaratPrice(1,3),
             'economic_calendar' => '<!DOCTYPE html>
                                     <html>
                                     <head>
@@ -129,7 +132,6 @@ class APIController extends Controller
     public function placeOrder(Request $request)
     {
         // Validate the incoming request
-
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id', // Ensure the user exists
             'products' => 'required|array', // Products should be an array
@@ -167,6 +169,8 @@ class APIController extends Controller
                     'payment_status' => 'unpaid',
                 ]);
             }
+
+            Cart::where('user_id', auth('api')->user()->id)->delete();
 
             return response()->json([
                 'success' => true,
@@ -321,7 +325,6 @@ class APIController extends Controller
 
     function liveRate()
     {
-
         $data = [
             'gold' => [
                 'low' => getLiveRate('mcx_gold_rate'),

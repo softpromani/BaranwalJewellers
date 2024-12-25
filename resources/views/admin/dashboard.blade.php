@@ -30,7 +30,7 @@
                         <i class="bi bi-currency-rupee"></i>
                       </div>
                       <div class="ps-3">
-                        <h6>{{ number_format(getBusinessSetting('mcx_gold_rate'),2) }}</h6>
+                        <h6>{{ number_format(getBusinessSetting('mcx_gold_rate'),2) }} / gms</h6>
                       </div>
                     </div>
                   </div>
@@ -46,7 +46,7 @@
                         <i class="bi bi-currency-rupee"></i>
                       </div>
                       <div class="ps-3">
-                        <h6>{{ number_format(getBusinessSetting('mcx_silver_rate'),2) }}</h6>
+                        <h6>{{ number_format(getBusinessSetting('mcx_silver_rate'),2) }} / gms</h6>
                       </div>
                     </div>
                   </div>

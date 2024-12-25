@@ -37,7 +37,11 @@ class User extends Authenticatable
 
     public function getImageUrlAttribute()
     {
-        return env('APP_URL') . 'storage/' . $this->image;
+        if(isset($this->image) || $this->image != null){
+            return env('APP_URL') . 'storage/' . $this->image;
+        } else {
+            return env('APP_URL').'admin/assets/img/bam_logo.png';
+        }
     }
 
     function carts()

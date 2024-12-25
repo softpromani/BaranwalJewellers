@@ -28,10 +28,18 @@ class ProductController extends Controller
                 return $product;
             });
 
-        return response()->json([
-            'success' => true,
-            'data' => $products
-        ], 200);
+        if($products){
+            return response()->json([
+                'success' => true,
+                'data' => $products
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => []
+            ], 200);
+        }
+
     }
 
     function listProductViaCategory($category_id)
