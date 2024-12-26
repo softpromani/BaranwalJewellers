@@ -1,8 +1,8 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<meta content="" name="description">
-<meta content="" name="keywords">
+<meta content="Baranwal Alankar Mandir" name="description">
+<meta content="BAM, Baranwal Alankar Mandir,bam_alankar_mandir" name="keywords">
 
 <!-- Favicons -->
 <link href="{{ asset('admin/assets/img/bam_logo.png') }}" rel="icon">
