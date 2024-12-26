@@ -43,10 +43,14 @@
                 <td>{{ $order->user->name }}<br/><span class="badge bg-info">{{ $order->user->phone }}</span></td>
                 <td>₹ {{ $order->order_amount }}</td>
                 <td>
-                    @if ($order->order_status == 'completed')
-                      <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Completed</span>
+                    @if ($order->order_status == 'confirmed')
+                        <span class="badge bg-primary"><i class="bi bi-check-circle me-1"></i> Confirmed</span>
+                    @elseif ($order->order_status == 'pending')
+                    <span class="badge bg-warning"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
+                    @elseif ($order->order_status == 'canceled')
+                    <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Canceled</span>
                     @else
-                      <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
+                        <span class="badge bg-success"><i class="bi bi-exclamation-octagon me-1"></i> Delivered</span>
                     @endif
                 </td>
                 <td>
