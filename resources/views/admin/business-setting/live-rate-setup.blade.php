@@ -41,14 +41,14 @@
                     <label for="inputPassword4" class="form-label">Gold Jewellery 18K 750</label>
                     <input type="number" class="form-control" name="gold_jewellery_18k" placeholder="Price" value="{{ getLiveRate('gold_jewellery_18k') }}">
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <label for="inputPassword4" class="form-label">Gold Costing</label>
                     <input type="number" class="form-control" name="gold_costing" placeholder="Price" value="{{ getLiveRate('gold_costing') }}">
                 </div>
                 <div class="col-md-6">
                     <label for="inputPassword4" class="form-label">Silver Costing</label>
                     <input type="number" class="form-control" name="silver_costing" placeholder="Price" value="{{ getLiveRate('silver_costing') }}">
-                </div>
+                </div> --}}
 
                 <div class="text-left">
                     <button type="submit" class="btn btn-primary">Update</button>

@@ -123,7 +123,7 @@
 
                 <div class="col-md-4">
                     <label for="inputPassword4" class="form-label">Weight <span class="text-danger">(In gms only)</span></label>
-                    <input type="number" class="form-control" name="weight" placeholder="Weight (In gms)" value="{{ isset($editproduct) ? $editproduct->weight : '' }}">
+                    <input type="number" class="form-control" step="0.1" name="weight" placeholder="Weight (In gms)" value="{{ isset($editproduct) ? $editproduct->weight : '' }}">
                 </div>
 
                 <div class="text-left">
