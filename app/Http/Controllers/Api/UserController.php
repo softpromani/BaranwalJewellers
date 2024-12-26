@@ -53,14 +53,15 @@ class UserController extends Controller
                 'errors' => $validate->errors(),
             ], status: 422);
         }
+
         $path = Null;
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $path = $file->store('profile_pic', 'public');
         }
-        $user = User::find(auth('api')->user()->id);
-        $user = $user->update([ 'image' => $path ]);
-        if ($user == true) {
+
+        $user = User::where('id', auth('api')->user()->id)->update([ 'image' => $path ]);
+        if ($user) {
             return response()->json(['data' => auth(guard: 'api')->user(), 'status' => true, 'message' => 'Profile picture updated successfully'], 200);
         } else {
             return response()->json(['status' => false, 'message' => 'Record not updated'], 200);
