@@ -140,4 +140,9 @@ class AuthController extends Controller
 
         return true;
     }
+
+    public function fetchLiveSpotRate()
+    {
+        fetchAuthorityRates();
+    }
 }

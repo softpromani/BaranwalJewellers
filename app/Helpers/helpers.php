@@ -44,7 +44,7 @@ if (!function_exists('getLiveRate')) {
     }
 }
 
-if (!function_exists('fetchSpotRate')) {
+if (!function_exists('fetchAuthorityRates')) {
     function fetchAuthorityRates()
     {
         $apiUrl = 'https://api.metals.dev/v1/metal/authority';

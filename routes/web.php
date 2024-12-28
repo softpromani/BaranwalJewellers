@@ -16,7 +16,7 @@ Route::get('/', [AuthController::class, 'login'])->name('home');
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
 
 Route::get('/dump', [AuthController::class, 'dump'])->name('dump');
-
+Route::get('/fetch-live-spot-rate', [AuthController::class, 'fetchLiveSpotRate'])->name('fetchLiveSpotRate');
 
 Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth' ], function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
