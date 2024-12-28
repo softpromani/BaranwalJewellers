@@ -22,22 +22,35 @@ class LoginController extends Controller
             return response()->json([
                 'message' => 'Validation failed',
                 'errors' => $validator->errors(),
-            ], status: 422);
+            ], 422); // Correct status code usage
         }
 
         // Validation passed, proceed with login or registration
         $validatedData = $validator->validated();
-       $user= User::firstOrCreate(attributes: ['phone'=>$validatedData['phone'],['fcm_token'=>$validatedData['fcm_token']]]);
-       if($user->wasRecentlyCreated){
-        $user->is_registered=false;
-       }
-       else
-       {
-        $user->is_registered=true;
-       }
-       $token = $user->createToken('Api Token')->accessToken;
-       return response()->json(['data'=>$user,'token'=>$token],status: 200);
 
+        // FirstOrCreate the user
+        $user = User::firstOrCreate(
+            ['phone' => $validatedData['phone']], // Attributes to search for
+            ['fcm_token' => $validatedData['fcm_token']] // Attributes to set if not found
+        );
 
+        // Check if the user was recently created
+        if ($user->wasRecentlyCreated) {
+            $user->is_registered = false;
+        } else {
+            $user->is_registered = true;
+        }
+
+        // Save the user to update the `is_registered` field if necessary
+        $user->save();
+
+        // Generate API token
+        $token = $user->createToken('Api Token')->accessToken;
+
+        // Return the response
+        return response()->json([
+            'data' => $user,
+            'token' => $token,
+        ], 200);
     }
 }
