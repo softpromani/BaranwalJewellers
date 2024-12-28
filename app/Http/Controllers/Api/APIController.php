@@ -209,6 +209,7 @@ class APIController extends Controller
 
         $order = Order::with('order_details')
                 ->where('user_id', auth('api')->user()->id)
+                ->latest()
                 ->get();
 
         if ($order) {

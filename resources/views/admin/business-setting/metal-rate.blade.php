@@ -30,7 +30,7 @@
 
                         <div class="col-md-3">
                             <label for="inputPassword4" class="form-label">{{ $carat->name }} Price</label>
-                            <input type="number" step="0.1" class="form-control" name="price[]" placeholder="Price"
+                            <input type="number" step="0.001" class="form-control" name="price[]" placeholder="Price"
                                 value="{{ getCaratPrice($metal->id, $carat->id) }}">
                         </div>
 

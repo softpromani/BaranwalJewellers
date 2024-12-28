@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     function orderList()
     {
-        $orders = Order::paginate(10);
+        $orders = Order::latest()->paginate(10);
         return view('admin.order.list', compact('orders'));
     }
 

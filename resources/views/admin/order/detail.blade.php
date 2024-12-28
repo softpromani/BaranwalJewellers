@@ -34,6 +34,8 @@
                                     <span class="badge bg-warning"><i class="bi bi-exclamation-octagon me-1"></i> Pending</span>
                                     @elseif ($order->order_status == 'canceled')
                                     <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Canceled</span>
+                                    @elseif ($order->order_status == 'pending_for_payment')
+                                    <span class="badge bg-info"><i class="bi bi-exclamation-octagon me-1"></i> Pending for payment</span>
                                     @else
                                         <span class="badge bg-success"><i class="bi bi-exclamation-octagon me-1"></i> Delivered</span>
                                     @endif
@@ -130,6 +132,7 @@
                             <option value="pending" {{ $order->order_status == 'pending' ? 'selected' : '' }} > Pending</option>
                             <option value="confirmed" {{ $order->order_status == 'confirmed' ? 'selected' : '' }}> Confirmed</option>
                             <option value="canceled" {{ $order->order_status == 'canceled' ? 'selected' : '' }}>Canceled </option>
+                            <option value="pending_for_payment" {{ $order->order_status == 'pending_for_payment' ? 'selected' : '' }}>Pending for payment </option>
                             <option value="delivered" {{ $order->order_status == 'delivered' ? 'selected' : '' }}>Delivered </option>
                         </select>
                     </div>
