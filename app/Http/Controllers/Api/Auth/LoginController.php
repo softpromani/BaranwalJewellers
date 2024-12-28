@@ -41,9 +41,6 @@ class LoginController extends Controller
             $user->is_registered = true;
         }
 
-        // Save the user to update the `is_registered` field if necessary
-        $user->save();
-
         // Generate API token
         $token = $user->createToken('Api Token')->accessToken;
 
