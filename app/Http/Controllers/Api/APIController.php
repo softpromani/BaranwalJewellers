@@ -308,7 +308,7 @@ class APIController extends Controller
 
     function notifications()
     {
-        $data = Notification::get();
+        $data = Notification::latest()->take(20)->get();
         if ($data) {
             return response()->json([
                 'success' => true,
