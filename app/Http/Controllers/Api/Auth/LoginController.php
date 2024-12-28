@@ -28,10 +28,10 @@ class LoginController extends Controller
         // Validation passed, proceed with login or registration
         $validatedData = $validator->validated();
 
-        // FirstOrCreate the user
-        $user = User::firstOrCreate(
-            ['phone' => $validatedData['phone']], // Attributes to search for
-            ['fcm_token' => $validatedData['fcm_token']] // Attributes to set if not found
+        // Use updateOrCreate to find or update the user
+        $user = User::updateOrCreate(
+            ['phone' => $validatedData['phone']], // Search by phone
+            ['fcm_token' => $validatedData['fcm_token']] // Update or set fcm_token
         );
 
         // Check if the user was recently created
