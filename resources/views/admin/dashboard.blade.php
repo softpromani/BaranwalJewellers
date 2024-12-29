@@ -137,7 +137,7 @@
                                                 <th scope="row"><a href="{{ route('admin.orderDetail', $order->id) }}">#{{ $order->order_id }}</a></th>
                                                 <td>{{ isset($order->user->name) && $order->user->name != null ? $order->user->name : 'BAM User' }}</td>
                                                 <td>{{ $order->user->phone }}</td>
-                                                <td>${{ $order->order_amount }}</td>
+                                                <td>₹ {{ $order->order_amount }}</td>
                                                 <td>
                                                     @if ($order->order_status == 'confirmed')
                                                         <span class="badge bg-primary"><i
