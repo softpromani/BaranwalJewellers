@@ -155,7 +155,9 @@
                                                 </td>
                                             </tr>
                                         @empty
-
+                                        <tr>
+                                            <td colspan="5" class="text-center">No data found!</td>
+                                        </tr>
                                         @endforelse
 
                                     </tbody>
@@ -197,7 +199,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="3" class="text-center">No data found!</td>
+                                                <td colspan="5" class="text-center">No data found!</td>
                                             </tr>
                                         @endforelse
 
