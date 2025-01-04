@@ -37,7 +37,7 @@ class Product extends Model
         $making_charge = $price * ($this->making_charge / 100);
 
         //tax charge
-        $tax_charge = ($price + $making_charge) * ($this->tax / 100);
+        $tax_charge = round(($price + $making_charge) * ($this->tax / 100), 2);
 
         // Final amount calculation
         $final_amount = $price + $packing_charge + $hallmarking_charge + $making_charge + $tax_charge;
@@ -64,7 +64,7 @@ class Product extends Model
         $making_charge = round($price * ($this->making_charge / 100), 2);
 
         //tax charge
-        $tax_charge = ($price + $making_charge) * ($this->tax / 100);
+        $tax_charge = round(($price + $making_charge) * ($this->tax / 100), 2);
 
         // Final amount calculation
         $final_amount = $price + $packing_charge + $hallmarking_charge + $making_charge + $tax_charge;
