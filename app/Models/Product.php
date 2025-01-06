@@ -86,7 +86,7 @@ class Product extends Model
 
     function carat()
     {
-        return $this->belongsTo(Metal::class, 'carat_id');
+        return $this->belongsTo(Carat::class, 'carat_id');
     }
 
 }
