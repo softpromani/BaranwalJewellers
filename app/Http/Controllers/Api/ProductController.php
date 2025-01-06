@@ -27,10 +27,17 @@ class ProductController extends Controller
     {
         $products = Product::active()->paginate(10);
 
-        return response()->json([
-            'success' => true,
-            'data' => $products
-        ], 200);
+        if($products){
+            return response()->json([
+                'success' => true,
+                'data' => $products
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => Null
+            ], 200);
+        }
     }
 
     function productSearch(Request $request)
