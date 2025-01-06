@@ -79,4 +79,14 @@ class Product extends Model
         ];
     }
 
+    function metal()
+    {
+        return $this->belongsTo(Metal::class, 'metal_id');
+    }
+
+    function carat()
+    {
+        return $this->belongsTo(Metal::class, 'carat_id');
+    }
+
 }

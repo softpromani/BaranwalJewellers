@@ -29,10 +29,13 @@ Route::middleware(['auth:api'])->group(function () {
     //Category
     Route::get('category/list', [CategoryController::class, 'list']);
 
-    //Product
+    //Single Product
+    Route::get('product/{id}', [ProductController::class, 'singleProduct']);
+
+    //Product List
     Route::get('product/list', [ProductController::class, 'list']);
 
-    //Product
+    //Product Search
     Route::get('product/search', [ProductController::class, 'productSearch']);
 
     //Product via category

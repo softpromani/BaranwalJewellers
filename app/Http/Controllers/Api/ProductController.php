@@ -7,6 +7,22 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 class ProductController extends Controller
 {
+    function singleProduct($id)
+    {
+        $product = Product::active()->with(['metal', 'carat'])->find($id);
+        if($product){
+            return response()->json([
+                'success' => true,
+                'data' => $product
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => Null
+            ], 200);
+        }
+    }
+
     function list()
     {
         $products = Product::active()->paginate(10);
