@@ -14,7 +14,7 @@ class LoginController extends Controller
         // Validate the input manually
         $validator = Validator::make($request->all(), [
             'phone' => 'required|string|max:15',
-            'fcm_token' => 'required',
+            'fcm_token' => 'nullable',
         ]);
 
         // If validation fails, return the error response
@@ -28,10 +28,11 @@ class LoginController extends Controller
         // Validation passed, proceed with login or registration
         $validatedData = $validator->validated();
 
-        // Use updateOrCreate to find or update the user
         $user = User::updateOrCreate(
             ['phone' => $validatedData['phone']], // Search by phone
-            ['fcm_token' => $validatedData['fcm_token']] // Update or set fcm_token
+            [
+                'fcm_token' => isset($validatedData['fcm_token']) ? $validatedData['fcm_token'] : null
+            ] // Update or set fcm_token based on its existence
         );
 
         // Check if the user was recently created
