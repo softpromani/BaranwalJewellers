@@ -77,7 +77,7 @@
 
                                     </td>
 
-                                    <td>₹ {{ $detail->product->final_amount }}</td>
+                                    <td>₹ {{ ($detail->price/$detail->quantity) ?? 0.00 }}</td>
                                     <td>
                                         ₹ {{ isset($detail->discount) ? $detail->discount : 0.00 }}
                                     </td>
