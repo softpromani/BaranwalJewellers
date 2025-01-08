@@ -83,3 +83,36 @@ if (!function_exists('fetchAuthorityRates')) {
         }
     }
 }
+
+if (!function_exists('fetchMetalsDevUsage')) {
+    function fetchMetalsDevUsage()
+    {
+        $apiUrl = 'https://api.metals.dev/usage';
+        $apiKey = '5YZQ9MIBTU622GNCQR8V103NCQR8V';
+
+        // Make the API request
+        $response = Http::get($apiUrl, [
+            'api_key' => $apiKey,
+        ]);
+
+        // Handle the API response
+        if ($response->successful()) {
+            $responseData = $response->json();
+
+            // Optional: Log the usage data or store it in a database if needed
+            // Example:
+            // Usage::create(['data' => json_encode($responseData)]);
+
+            return response()->json([
+                'success' => true,
+                'data' => $responseData,
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch usage data',
+                'error' => $response->body(),
+            ], $response->status());
+        }
+    }
+}

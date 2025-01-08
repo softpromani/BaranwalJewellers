@@ -20,11 +20,15 @@
             <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
-
                     <div class="col-xxl-4 col-xl-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">Live Rate <span>| Gold MCX</span></h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">Live Rate <span>| Gold MCX</span></h5>
+                                    <a href="{{ route('fetchLiveSpotRate') }}" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-arrow-clockwise"></i> Refresh
+                                    </a>
+                                </div>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-currency-rupee"></i>
@@ -40,7 +44,11 @@
                     <div class="col-xxl-4 col-xl-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">Live Rate <span>| Silver MCX</span></h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">Live Rate <span>| Silver MCX</span></h5>
+                                    <!-- API Usage Badge -->
+                                    <span class="badge bg-danger rounded-pill" id="api-usage-badge">API Usage: {{ $usage->original['data']['used'] }} / {{ $usage->original['data']['total'] }}</span>
+                                </div>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-currency-rupee"></i>

@@ -144,5 +144,6 @@ class AuthController extends Controller
     public function fetchLiveSpotRate()
     {
         fetchAuthorityRates();
+        return redirect()->back();
     }
 }

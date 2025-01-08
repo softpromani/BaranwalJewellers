@@ -14,8 +14,9 @@ class AdminController extends Controller
     {
         $carts = Cart::latest()->take(5)->get();
         $orders = Order::with('order_details')->latest()->take(5)->get();
+        $usage = fetchMetalsDevUsage();
         // $data = fetchAuthorityRates();
-        return view('admin.dashboard', compact('carts', 'orders'));
+        return view('admin.dashboard', compact('carts', 'orders','usage'));
     }
 
     function customerList(Request $request)
