@@ -54,58 +54,61 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Notification List </h5>
-
-            <!-- Table with hoverable rows -->
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                    $start = ($notifications->currentPage() - 1) * $notifications->perPage() + 1;
-                    @endphp
-                    @forelse ($notifications as $index => $notification)
+            <div class="table-responsive">
+                <!-- Table with hoverable rows -->
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <th scope="row">{{ $start + $index }}</th>
-                            <td><img src="{{ asset('storage/' . $notification->image) }}" alt="" width="100">
-                            </td>
-                            <td>{{ $notification->title ?? 'N/A' }}</td>
-                            <td>{{ $notification->description ?? 'N/A' }}</td>
-
-                            <td>
-                                @if ($notification->status == 1)
-                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
-                                @else
-                                <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Inactive</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.notification.edit', $notification->id) }}"
-                                    class="btn btn-warning"><i class="bi bi-pencil-square">
-                                    </i></a>
-                                <form action="{{ route('admin.notification.destroy', $notification->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
-
-                                </form>
-
-                            </td>
+                            <th scope="col">ID</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                         </tr>
-                       @empty
-                        <tr>
-                            <td colspan="6" class="text-center"> No data found!</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @php
+                            $start = ($notifications->currentPage() - 1) * $notifications->perPage() + 1;
+                        @endphp
+                        @forelse ($notifications as $index => $notification)
+                            <tr>
+                                <th scope="row">{{ $start + $index }}</th>
+                                <td><img src="{{ asset('storage/' . $notification->image) }}" alt="" width="100">
+                                </td>
+                                <td>{{ $notification->title ?? 'N/A' }}</td>
+                                <td>{{ $notification->description ?? 'N/A' }}</td>
+
+                                <td>
+                                    @if ($notification->status == 1)
+                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
+                                    @else
+                                        <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i>
+                                            Inactive</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.notification.edit', $notification->id) }}"
+                                        class="btn btn-warning"><i class="bi bi-pencil-square">
+                                        </i></a>
+                                    <form action="{{ route('admin.notification.destroy', $notification->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+
+                                    </form>
+
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center"> No data found!</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
             {{ $notifications->links('pagination::bootstrap-4') }}
 
         </div>

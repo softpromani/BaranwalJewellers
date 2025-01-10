@@ -57,7 +57,7 @@
                     @if (isset($editCategory->image))
                         <img id="output" src="{{ asset('storage/' . $editCategory->image) }}" class=""
                             alt=" Image" style="max-height: 161px; max-width:166px; border-radius:5px;">
-                    {{-- @else
+                        {{-- @else
                         <img id="output" alt=" Image" style="max-height: 161px; max-width:166px; border-radius:5px;"> --}}
                     @endif
                 </div>
@@ -80,49 +80,51 @@
         <div class="card-body">
             <h5 class="card-title">Category List</h5>
 
-            <!-- Table with hoverable rows -->
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Category Image</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Priority</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                    $start = ($categories->currentPage() - 1) * $categories->perPage() + 1;
-                    @endphp
-                    @forelse ($categories as $index => $category)
+            <div class="table-responsive">
+                <!-- Table with hoverable rows -->
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <th scope="row">{{ $start + $index }}</th>
-                            <td>
-                                <img src="{{ asset('storage/' . $category->image) }}" width="80" />
-                            </td>
-                            <td>{{ $category->name ?? 'N/A' }}</td>
-                            <td>{{ $category->sequence ?? 'N/A' }}</td>
-                            <td>
-                                @if ($category->status == 1)
-                                    <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
-                                @else
-                                    <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i>
-                                        Inactive</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a class="btn btn-warning" href="{{ route('admin.category.edit', $category->id) }}"><i
-                                        class="bi bi-pencil-square"></i></a>
-                                <a class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                            </td>
+                            <th scope="col">ID</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Priority</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                         </tr>
-                    @empty
-                    @endforelse
+                    </thead>
+                    <tbody>
+                        @php
+                            $start = ($categories->currentPage() - 1) * $categories->perPage() + 1;
+                        @endphp
+                        @forelse ($categories as $index => $category)
+                            <tr>
+                                <th scope="row">{{ $start + $index }}</th>
+                                <td>
+                                    <img src="{{ asset('storage/' . $category->image) }}" width="80" />
+                                </td>
+                                <td>{{ $category->name ?? 'N/A' }}</td>
+                                <td>{{ $category->sequence ?? 'N/A' }}</td>
+                                <td>
+                                    @if ($category->status == 1)
+                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
+                                    @else
+                                        <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i>
+                                            Inactive</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning" href="{{ route('admin.category.edit', $category->id) }}"><i
+                                            class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        @empty
+                        @endforelse
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
             {{ $categories->links('pagination::bootstrap-4') }}
 
         </div>

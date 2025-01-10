@@ -18,11 +18,11 @@
             <h5 class="card-title">Filter Customers</h5>
             <form action="{{ route('admin.customerList') }}" method="GET">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-2">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="Enter name" value="{{ request('name') }}">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-2">
                         <label for="phone" class="form-label">Phone</label>
                         <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter phone" value="{{ request('phone') }}">
                     </div>
@@ -40,40 +40,42 @@
             <h5 class="card-title">Customer List</h5>
 
             <!-- Table with hoverable rows -->
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">SL</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Registered at</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                    $start = ($users->currentPage() - 1) * $users->perPage() + 1;
-                    @endphp
-                    @forelse ($users as $index => $user)
+            <div class="table-responsive">
+                <table class="table table-hover table-responsive">
+                    <thead>
                         <tr>
-                            <th scope="row">{{ $start + $index }}</th>
-                            <td>{{ isset($user->name) && $user->name != Null ? $user->name : 'BAM User' }}</td>
-                            <td>+91 {{ $user->phone }}</td>
-                            <td>{{ $user->address ?? 'N/A' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d M,Y') }}</td>
-                            <td>
-                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
-                            </td>
+                            <th scope="col">SL</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Joined at</th>
+                            <th scope="col">Status</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="text-center">No data found!</td>
-                        </tr>
-                    @endforelse
+                    </thead>
+                    <tbody>
+                        @php
+                        $start = ($users->currentPage() - 1) * $users->perPage() + 1;
+                        @endphp
+                        @forelse ($users as $index => $user)
+                            <tr>
+                                <th scope="row">{{ $start + $index }}</th>
+                                <td>{{ isset($user->name) && $user->name != Null ? $user->name : 'BAM User' }}</td>
+                                <td>+91 {{ $user->phone }}</td>
+                                <td>{{ $user->address ?? 'N/A' }}</td>
+                                <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d M,Y') }}</td>
+                                <td>
+                                    <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">No data found!</td>
+                            </tr>
+                        @endforelse
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
             {{ $users->links('pagination::bootstrap-4') }}
 
         </div>

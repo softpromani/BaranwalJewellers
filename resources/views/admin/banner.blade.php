@@ -48,53 +48,54 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Banner List </h5>
-
-            <!-- Table with hoverable rows -->
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Banner Image</th>
-                        <th scope="col">Banner URL</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($banners as $banner)
+            <div class="table-responsive">
+                <!-- Table with hoverable rows -->
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <th scope="row">{{ $loop->index + 1 }}</th>
-                            <td><img src="{{ asset('storage/' . $banner->image) }}" alt="" width="100"></td>
-                            <td>{{ $banner->path ?? 'N/A' }}</td>
-                            <td>
-                                @if ($banner->status == 1)
-                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
-                                @else
-                                <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Inactive</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.banner.edit', $banner->id) }}" class="btn btn-warning"><i
-                                        class="bi bi-pencil-square">
-                                    </i></a>
-                                <form action="{{ route('admin.banner.destroy', $banner->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
-
-                                </form>
-
-                            </td>
+                            <th scope="col">ID</th>
+                            <th scope="col">Banner Image</th>
+                            <th scope="col">Banner URL</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="text-center"> No data found!</td>
-                        </tr>
-                    @endforelse
+                    </thead>
+                    <tbody>
+                        @forelse ($banners as $banner)
+                            <tr>
+                                <th scope="row">{{ $loop->index + 1 }}</th>
+                                <td><img src="{{ asset('storage/' . $banner->image) }}" alt="" width="100"></td>
+                                <td>{{ $banner->path ?? 'N/A' }}</td>
+                                <td>
+                                    @if ($banner->status == 1)
+                                        <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
+                                    @else
+                                        <span class="badge bg-danger"><i class="bi bi-exclamation-octagon me-1"></i>
+                                            Inactive</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.banner.edit', $banner->id) }}" class="btn btn-warning"><i
+                                            class="bi bi-pencil-square">
+                                        </i></a>
+                                    <form action="{{ route('admin.banner.destroy', $banner->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
 
-                </tbody>
-            </table>
+                                    </form>
 
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center"> No data found!</td>
+                            </tr>
+                        @endforelse
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
