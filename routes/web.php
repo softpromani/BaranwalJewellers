@@ -49,3 +49,7 @@ Route::group([ 'name' => 'admin', 'prefix' => 'admin', 'as' => 'admin.', 'middle
     Route::post('live-rate', [MetalrateController::class, 'updateLiveRate'])->name('liveRate');
 
 });
+
+//Policy pages
+Route::get('terms-and-condition', [AdminController::class, 'termsCondition'])->name('termsCondition');
+Route::get('privacy-policy', [AdminController::class, 'privacyPolicy'])->name('privacyPolicy');

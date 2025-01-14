@@ -33,4 +33,14 @@ class AdminController extends Controller
         $users = $query->paginate(10);
         return view('admin.customer.list', compact('users'));
     }
+
+    function termsCondition()
+    {
+        return view('policy.terms_condition');
+    }
+
+    function privacyPolicy()
+    {
+        return view('policy.privacy_policy');
+    }
 }
