@@ -47,7 +47,12 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5 class="card-title">Live Rate <span>| Silver MCX</span></h5>
                                     <!-- API Usage Badge -->
-                                    <span class="badge bg-danger rounded-pill" id="api-usage-badge">API Usage: {{ $usage->original['data']['used'] }} / {{ $usage->original['data']['total'] }}</span>
+                                    <span class="badge bg-danger rounded-pill" id="api-usage-badge">
+                                        API Usage:
+                                        {{ isset($usage->original['data']['used']) ? $usage->original['data']['used'] : 'N/A' }} /
+                                        {{ isset($usage->original['data']['total']) ? $usage->original['data']['total'] : 'N/A' }}
+                                    </span>
+
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
