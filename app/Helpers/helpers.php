@@ -48,7 +48,7 @@ if (!function_exists('fetchAuthorityRates')) {
     function fetchAuthorityRates()
     {
         $apiUrl = 'https://api.metals.dev/v1/metal/authority';
-        $apiKey = '5YZQ9MIBTU622GNCQR8V103NCQR8V';
+        $apiKey = 'DRHVDSWOHDIUJOCERPSW593CERPSW';
 
         // Get parameters from the request or set defaults
         $authority = 'mcx';
@@ -88,7 +88,7 @@ if (!function_exists('fetchMetalsDevUsage')) {
     function fetchMetalsDevUsage()
     {
         $apiUrl = 'https://api.metals.dev/usage';
-        $apiKey = '5YZQ9MIBTU622GNCQR8V103NCQR8V';
+        $apiKey = 'DRHVDSWOHDIUJOCERPSW593CERPSW';
 
         // Make the API request
         $response = Http::get($apiUrl, [
