@@ -28,25 +28,20 @@
                     @method('patch')
                 @endif
                 <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Category Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Category Name"
+                    <label for="categoryName" class="form-label">Category Name</label>
+                    <input type="text" class="form-control" id="categoryName" name="name" placeholder="Category Name"
                         value="{{ isset($editCategory) ? $editCategory->name : '' }}">
                 </div>
 
                 <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Sequence</label>
-                    <select id="inputState" name="sequence" class="form-select">
+                    <label for="sequence" class="form-label">Sequence</label>
+                    <select id="sequence" name="sequence" class="form-select">
                         <option value="" selected>Select Sequence</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
+                        @for ($i = 1; $i <= 10; $i++)
+                            <option value="{{ $i }}" {{ isset($editCategory) && $editCategory->sequence == $i ? 'selected' : '' }}>
+                                {{ $i }}
+                            </option>
+                        @endfor
                     </select>
                 </div>
                 <div class="col-md-6">
