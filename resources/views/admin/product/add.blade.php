@@ -38,6 +38,12 @@
                 <div class="col-md-4">
                     <label for="inputPassword4" class="form-label">Thumbnail Image</label>
                     <input type="file" class="form-control" name="thumbnail_image">
+                    <div class="signatureImageShow">
+                        @if (isset($editproduct->thumbnail_image))
+                            <img id="output" src="{{ asset('storage/' . $editproduct->thumbnail_image) }}" class=""
+                                alt="Image" style="max-height: 161px; max-width:166px; border-radius:5px;">
+                        @endif
+                    </div>
                 </div>
 
                 <div class="col-md-4">

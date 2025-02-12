@@ -52,8 +52,6 @@
                     @if (isset($editCategory->image))
                         <img id="output" src="{{ asset('storage/' . $editCategory->image) }}" class=""
                             alt=" Image" style="max-height: 161px; max-width:166px; border-radius:5px;">
-                        {{-- @else
-                        <img id="output" alt=" Image" style="max-height: 161px; max-width:166px; border-radius:5px;"> --}}
                     @endif
                 </div>
                 {{-- @isset($editCategory)
@@ -111,7 +109,12 @@
                                 <td>
                                     <a class="btn btn-warning" href="{{ route('admin.category.edit', $category->id) }}"><i
                                             class="bi bi-pencil-square"></i></a>
-                                    <a class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                    <form action="{{ route('admin.category.destroy', $category->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+
+                                    </form>
                                 </td>
                             </tr>
                         @empty
